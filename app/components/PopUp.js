@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native';
+import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   chatMeta: {
@@ -89,12 +89,11 @@ const styles = StyleSheet.create({
 });
 
 export default class PopUp extends Component {
-  state = {
-    modalVisible: true,
-  };
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: this.props.visible,
+    };
   }
 
   render() {
@@ -103,7 +102,7 @@ export default class PopUp extends Component {
         <Modal
           animationType={'slide'}
           transparent
-          visible={this.state.modalVisible}
+          visible={this.state.modal}
           onRequestClose={() => console.log('request close')}
         >
           <View style={styles.modal}>
@@ -111,7 +110,7 @@ export default class PopUp extends Component {
             <TouchableOpacity
               style={styles.submitButton}
               onPress={() => {
-                this.setState({ modalVisible: false });
+                this.setState({ modal: false });
               }}
             >
               <Text style={styles.buttonText}>Got it! </Text>

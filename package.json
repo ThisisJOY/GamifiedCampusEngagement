@@ -1,5 +1,5 @@
 {
-  "name": "gamifiedCampusEngagement",
+  "name": "GamifiedCampusEngagement",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,8 +16,11 @@
     "react-native": "^0.45.1",
     "react-native-beacons-manager": "^1.0.1",
     "react-native-bluetooth-state": "^2.0.0",
+    "react-native-deprecated-custom-components": "^0.1.0",
     "react-native-elements": "^0.13.0",
     "react-native-extended-stylesheet": "^0.4.0",
+    "react-native-modal": "^2.4.0",
+    "react-native-popup-dialog": "^0.9.29",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
@@ -31,7 +34,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "jest-expo": "~18.0.0",
     "prettier": "^1.5.0",
     "prettier-eslint": "^6.2.0",
     "react-native-scripts": "0.0.40",

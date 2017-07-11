@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { sites, events } from '../config/data';
 

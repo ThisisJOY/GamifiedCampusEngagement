@@ -33,7 +33,11 @@ class Campus extends Component {
   render() {
     return (
       <Container>
-        <TouchableOpacity style={styles.buttonContianer} onPress={() => this.handlePress('Sites')}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonContianer}
+          onPress={() => this.handlePress('Sites')}
+        >
           <Image
             resizeMode="contain"
             source={require('./images/sites.jpg')}
@@ -42,7 +46,11 @@ class Campus extends Component {
             <Text style={styles.text}>Campus Sites</Text>
           </Image>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContianer} onPress={() => this.handlePress('Events')}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonContianer}
+          onPress={() => this.handlePress('Events')}
+        >
           <Image
             resizeMode="contain"
             source={require('./images/events.jpg')}

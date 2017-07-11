@@ -3,6 +3,21 @@ import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
+export default function Button({ text, onPress }) {
+  return (
+    <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
+Button.propTypes = {
+  text: PropTypes.string,
+  onPress: PropTypes.func,
+};
+
 const styles = StyleSheet.create({
   button: {
     width: WIDTH * 0.8,
@@ -20,18 +35,3 @@ const styles = StyleSheet.create({
     fontWeight: '100',
   },
 });
-
-export default function Button({ text, onPress }) {
-  return (
-    <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
-}
-
-Button.propTypes = {
-  text: PropTypes.string,
-  onPress: PropTypes.func,
-};

@@ -1,3 +1,157 @@
+const burb = require('../screens/images/001.png');
+const alakazam = require('../screens/images/Alakazam.png');
+const mewtwo = require('../screens/images/mewtwo.png');
+const gyarados = require('../screens/images/Gyarados.png');
+const charmeleon = require('../screens/images/005.png');
+const charizard = require('../screens/images/006.png');
+const squirtle = require('../screens/images/007.png');
+const warturtle = require('../screens/images/008.png');
+const caterpie = require('../screens/images/010.png');
+const mystic = require('../screens/images/mystic.png');
+
+export const currentPokemon = [
+  {
+    name: 'Bulbasaur',
+    image: burb,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting Aula',
+  },
+  {
+    name: 'Alakazam',
+    image: alakazam,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting B',
+  },
+  {
+    name: 'Mewtwo',
+    image: mewtwo,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting C',
+  },
+  {
+    name: 'Gyarados',
+    image: gyarados,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting D',
+  },
+  {
+    name: 'Charmeleon',
+    image: charmeleon,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting E',
+  },
+  {
+    name: 'Charizard',
+    image: charizard,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting F',
+  },
+  {
+    name: 'Squirtle',
+    image: squirtle,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting G',
+  },
+  {
+    name: 'Warturtle',
+    image: warturtle,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting H',
+  },
+  {
+    name: 'Caterpie',
+    image: caterpie,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting I',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting J',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting K',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting L',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting M',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting N',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting O',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting P',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting Q',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting R',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting S',
+  },
+  {
+    name: 'Unlocked',
+    image: mystic,
+    selected: false,
+    isUnlocked: true,
+    desc: 'You can unlock this sticker by visiting T',
+  },
+];
+
 export const sites = [
   {
     uuid: '01122334-4556-6778-899a-abbccddeeff0',

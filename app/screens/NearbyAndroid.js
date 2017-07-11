@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  ListView,
-  ScrollView,
-  View,
-  DeviceEventEmitter,
-  Platform,
-  Image,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
-import { Tile, List, ListItem } from 'react-native-elements';
+import { StyleSheet, Text, ListView, View, DeviceEventEmitter } from 'react-native';
+import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
 import Container from '../components/Container';
 import { sites } from '../config/data';
+import PopUp from '../components/PopUp';
+import { Logo } from '../components/Logo';
 
-// var disabled = false
+const styles = StyleSheet.create({
+  headline: {
+    fontSize: 20,
+  },
+});
 
 class NearbyAndroid extends Component {
   constructor(props) {
@@ -27,6 +22,7 @@ class NearbyAndroid extends Component {
     this.state = {
       uuidRef: '01122334-4556-6778-899a-abbccddeeff0',
       dataSource: ds.cloneWithRows([]),
+      modal: false,
     };
   }
 
@@ -41,7 +37,7 @@ class NearbyAndroid extends Component {
 
   componentDidMount() {
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
-      if (data.beacons !== null) {
+      if (data.beacons != null) {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(data.beacons),
         });
@@ -58,18 +54,21 @@ class NearbyAndroid extends Component {
 
     if (dataSource.getRowCount() === 0) {
       return (
-        <Text style={styles.headline}>
-          Find nearest beacons to get information about a campus location
-        </Text>
+        <Container>
+          <Logo />
+        </Container>
       );
     }
 
     return (
-      <ListView
-        dataSource={dataSource}
-        enableEmptySections
-        renderRow={beacon => this.renderBeaconRow(beacon)}
-      />
+      <View>
+        {this.state.modal ? <PopUp visible={this.state.modal} /> : null}
+        <ListView
+          dataSource={dataSource}
+          enableEmptySections
+          renderRow={beacon => this.renderBeaconRow(beacon)}
+        />
+      </View>
     );
   }
 
@@ -128,16 +127,10 @@ class NearbyAndroid extends Component {
     );
   }
 
-  handleCheckinPress = () => {
-    this.props.navigation.navigate('Feedback');
-  };
+  // handleCheckinPress = () => {
+  //   this.props.navigation.navigate('Feedback');
+  // };
 }
-
-const styles = StyleSheet.create({
-  headline: {
-    fontSize: 20,
-  },
-});
 
 module.exports = NearbyAndroid;
 
