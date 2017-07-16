@@ -2,7 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { sites, events } from '../config/data';
+import { achievements } from '../config/data';
+
+const sites = [];
+const events = [];
+
+console.log(achievements);
+
+achievements.forEach((achievement) => {
+  if (achievement.type && achievement.type === 'site') {
+    sites.push(achievement);
+  } else if (achievement.type && achievement.type === 'event') {
+    events.push(achievement);
+  }
+});
 
 class Feed extends Component {
   static propTypes = {
@@ -25,8 +38,8 @@ class Feed extends Component {
             <ListItem
               key={item.name}
               roundAvatar
-              avatar={{ uri: item.picture }}
-              title={item.name.toUpperCase()}
+              avatar={item.picture}
+              title={item.name}
               onPress={() => this.onLearnMore(item)}
             />,
           )}

@@ -1,15 +1,38 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, ListView, View, DeviceEventEmitter } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ListView,
+  View,
+  DeviceEventEmitter,
+  TouchableOpacity,
+} from 'react-native';
+import Modal from 'react-native-modal';
 import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
+import BeaconInfo from '../components/BeaconInfo';
+import Logo from '../components/Logo';
 import Container from '../components/Container';
-import { sites } from '../config/data';
-import PopUp from '../components/PopUp';
-import { Logo } from '../components/Logo';
+
+import { achievements } from '../config/data';
 
 const styles = StyleSheet.create({
-  headline: {
-    fontSize: 20,
+  button: {
+    backgroundColor: '#f96062',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
 });
 
@@ -22,7 +45,8 @@ class NearbyAndroid extends Component {
     this.state = {
       uuidRef: '01122334-4556-6778-899a-abbccddeeff0',
       dataSource: ds.cloneWithRows([]),
-      modal: false,
+      isModalVisible: false,
+      result: null,
     };
   }
 
@@ -49,6 +73,51 @@ class NearbyAndroid extends Component {
     this.beaconsDidRange = null;
   }
 
+  hideModal = () => this.setState({ isModalVisible: false });
+
+  renderBeaconRow(beacon) {
+    // check if the detected beacon is one of our beacons
+    achievements.forEach((achievement) => {
+      // achievement.isUnlocked = false;
+      if (beacon.major === achievement.major) {
+        achievement.isUnlocked = true;
+        return this.setState({ result: achievement, isModalVisible: true });
+      }
+    });
+
+    return (
+      <View>
+        <Tile
+          activeOpacity={1}
+          imageSrc={this.state.result.picture ? this.state.result.picture : null}
+          featured
+          title={this.state.result.name ? this.state.result.name : null}
+        />
+        <Container style={{ backgroundColor: 'lightskyblue' }}>
+          <Text>Address</Text>
+        </Container>
+        <Text>
+          {`Gebouw ${this.state.result.locatieCode ? this.state.result.locatieCode : null}, ${this
+            .state.result.address.straat
+            ? this.state.result.address.straat
+            : null} ${this.state.result.address.huisnummer
+            ? this.state.result.address.huisnummer
+            : null}, ${this.state.result.address.postcode
+            ? this.state.result.address.postcode
+            : null} Delft`}
+        </Text>
+        <Container style={{ backgroundColor: 'lightskyblue' }}>
+          <Text>Description</Text>
+        </Container>
+        <Text>
+          {this.state.result.info ? this.state.result.info : null}
+        </Text>
+
+        <BeaconInfo beacon={beacon} />
+      </View>
+    );
+  }
+
   render() {
     const { dataSource } = this.state;
 
@@ -62,81 +131,43 @@ class NearbyAndroid extends Component {
 
     return (
       <View>
-        {this.state.modal ? <PopUp visible={this.state.modal} /> : null}
         <ListView
           dataSource={dataSource}
           enableEmptySections
           renderRow={beacon => this.renderBeaconRow(beacon)}
         />
+        {
+          <Modal
+            isVisible={this.state.isModalVisible}
+            animationIn={'slideInUp'}
+            animationOut={'slideOutDown'}
+          >
+            {this.state.result && this.state.result.isUnlocked
+              ? <View style={styles.modalContent}>
+                <Text>
+                  {this.state.feedback ? this.state.feedback : ''}
+                </Text>
+                <TouchableOpacity onPress={this.hideModal}>
+                  <View style={styles.button}>
+                    <Text>Dismiss</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              : null}
+          </Modal>
+        }
       </View>
     );
   }
-
-  renderBeaconRow(beacon) {
-    const beaconID = beacon.major;
-    let site = null;
-
-    // check if the detected beacon is from one of our beacons
-    sites.forEach((item) => {
-      if (beaconID === item.major) {
-        return (site = item);
-      }
-    });
-
-    if (site === null) {
-      return (
-        <Text style={styles.headline}>The detected beacon is not from one of our beacons!</Text>
-      );
-    }
-
-    return (
-      <Container>
-        <Tile imageSrc={{ uri: site.picture }} featured title={site.name} caption={site.address} />
-
-        <Container style={{ flex: 1, backgroundColor: 'lightskyblue' }}>
-          <Text> Beacon </Text>
-        </Container>
-
-        <Text>
-          UUID: {beacon.uuid ? beacon.uuid : 'NA'}
-        </Text>
-        <Text>
-          Major: {beacon.major ? beacon.major : 'NA'}
-        </Text>
-        <Text>
-          Minor: {beacon.minor ? beacon.minor : 'NA'}
-        </Text>
-        <Text>
-          RSSI: {beacon.rssi ? beacon.rssi : 'NA'}
-        </Text>
-        <Text>
-          Proximity: {beacon.proximity ? beacon.proximity : 'NA'}
-        </Text>
-        <Text>
-          Distance: {beacon.distance ? beacon.distance.toFixed(2) : 'NA'}m
-        </Text>
-
-        <Container style={{ flex: 1, backgroundColor: 'lightskyblue' }}>
-          <Text> Info </Text>
-        </Container>
-
-        <Text>
-          {site.info}
-        </Text>
-      </Container>
-    );
-  }
-
-  // handleCheckinPress = () => {
-  //   this.props.navigation.navigate('Feedback');
-  // };
 }
 
-module.exports = NearbyAndroid;
+export default NearbyAndroid;
 
-// <Button
-//    title="Unlock Achievement"
-//    buttonStyle={{ marginTop: 20 }}
-//    disabled={disabled}
-//    onPress={ !disabled && this.handleCheckinPress }
+// <Tile
+//   imageSrc={this.state.result.picture}
+//   featured
+//   title={this.state.result.name}
+//   caption={`Gebouw ${this.state.result.locatieCode}, ${this.state.result.address
+//     .straat} ${this.state.result.address.huisnummer}, ${this.state.result.address
+//     .postcode} Delft`}
 // />

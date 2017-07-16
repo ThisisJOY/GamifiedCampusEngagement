@@ -1,22 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
-
-export default function Button({ text, onPress }) {
-  return (
-    <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
-}
-
-Button.propTypes = {
-  text: PropTypes.string,
-  onPress: PropTypes.func,
-};
 
 const styles = StyleSheet.create({
   button: {
@@ -35,3 +21,17 @@ const styles = StyleSheet.create({
     fontWeight: '100',
   },
 });
+
+const Button = ({ text, onPress }) =>
+  <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={onPress}>
+    <Text style={styles.buttonText}>
+      {text}
+    </Text>
+  </TouchableOpacity>;
+
+Button.propTypes = {
+  text: PropTypes.string,
+  onPress: PropTypes.func,
+};
+
+export default Button;

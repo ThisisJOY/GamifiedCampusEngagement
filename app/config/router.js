@@ -12,19 +12,19 @@ import Feed from '../screens/Feed';
 
 export const Tabs = TabNavigator(
   {
+    Nearby: {
+      screen: Platform.OS === 'ios' ? NearbyIOS : NearbyAndroid,
+      navigationOptions: {
+        tabBarLabel: 'Near Me',
+        tabBarIcon: ({ tintColor }) => <Icon name="gps-fixed" size={12} color={tintColor} />,
+      },
+    },
     Achievements: {
       screen: Achievements,
       navigationOptions: {
         tabBarLabel: 'Achievements',
         tabBarIcon: ({ tintColor }) =>
           <Icon name="diamond" type="font-awesome" size={12} color={tintColor} />,
-      },
-    },
-    Nearby: {
-      screen: Platform.OS === 'ios' ? NearbyIOS : NearbyAndroid,
-      navigationOptions: {
-        tabBarLabel: 'Near Me',
-        tabBarIcon: ({ tintColor }) => <Icon name="gps-fixed" size={12} color={tintColor} />,
       },
     },
     Campus: {

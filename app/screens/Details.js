@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import Detail from '../components/Detail';
 
 class Details extends Component {
@@ -8,9 +8,9 @@ class Details extends Component {
   };
 
   render() {
-    const site = this.props.navigation.state.params;
+    const item = this.props.navigation.state.params;
 
-    return <Detail site={site} />;
+    return <Detail achievement={item} />;
   }
 }
 

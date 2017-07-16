@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableOpacity, ListView, View, Button, StyleSheet } from 'react-native';
+import { Image, Text, TouchableOpacity, ListView, View, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-// import Button from '../components/Button';
 
-import { currentPokemon } from '../config/data';
+import { achievements } from '../config/data';
 
 const physcBack = require('./images/physcBack.jpg');
 const congratulations = require('./images/congratulations.png');
+const mystic = require('./images/mystic.png');
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+const TOTAL = achievements.length;
+const COUNT = 0;
 
 const styles = StyleSheet.create({
   button: {
@@ -39,33 +41,45 @@ export default class Achievements extends Component {
     super(props);
 
     this.state = {
-      dataSource: ds.cloneWithRows(currentPokemon),
+      dataSource: ds.cloneWithRows(achievements),
       isModalVisible: false,
-      text: '',
+      achievement: null,
     };
   }
 
-  showModal(text) {
-    this.setState({ isModalVisible: true, text });
+  showModal(achievement) {
+    this.setState({ isModalVisible: true, achievement });
   }
 
   hideModal = () => this.setState({ isModalVisible: false });
 
-  modalContent = () =>
-    <View style={styles.modalContent}>
-      <Text>
-        {this.state.text ? this.state.text : ''}
-      </Text>
-      <TouchableOpacity onPress={this.hideModal}>
-        <View style={styles.button}>
-          <Text>Dismiss</Text>
-        </View>
-      </TouchableOpacity>
-    </View>;
-
   eachRow(val) {
+    if (!val.isUnlocked) {
+      return (
+        <TouchableOpacity onPress={() => this.showModal(val)}>
+          <View style={{ height: 120, margin: 10 }}>
+            <Image
+              source={mystic}
+              style={{ height: 80, width: 80, margin: 10 }}
+              resizeMode="contain"
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                borderBottomWidth: 1,
+                borderColor: '#e3e3e3',
+                padding: 5,
+              }}
+            >
+              <Text style={{ fontSize: 11, color: '#777' }}>Locked</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    }
     return (
-      <TouchableOpacity onPress={() => this.showModal(val.desc)}>
+      <TouchableOpacity onPress={() => this.showModal(val)}>
         <View style={{ height: 120, margin: 10 }}>
           <Image
             source={val.image}
@@ -82,7 +96,7 @@ export default class Achievements extends Component {
             }}
           >
             <Text style={{ fontSize: 11, color: '#777' }}>
-              {val.name}
+              {val.achievementName}
             </Text>
           </View>
         </View>
@@ -146,7 +160,31 @@ export default class Achievements extends Component {
           animationIn={'slideInLeft'}
           animationOut={'slideOutRight'}
         >
-          {this.modalContent()}
+          {this.state.achievement && this.state.achievement.isUnlocked
+            ? <View style={styles.modalContent}>
+              <Text>
+                {this.state.achievement && this.state.achievement.feedback
+                    ? this.state.achievement.feedback
+                    : ''}
+              </Text>
+              <TouchableOpacity onPress={this.hideModal}>
+                <View style={styles.button}>
+                  <Text>Dismiss</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            : <View style={styles.modalContent}>
+              <Text>
+                {this.state.achievement && this.state.achievement.instruction
+                    ? this.state.achievement.instruction
+                    : ''}
+              </Text>
+              <TouchableOpacity onPress={this.hideModal}>
+                <View style={styles.button}>
+                  <Text>Dismiss</Text>
+                </View>
+              </TouchableOpacity>
+            </View>}
         </Modal>
       </View>
     );
