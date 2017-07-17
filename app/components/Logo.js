@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 const Logo = () =>
   <View style={styles.container}>
     <Icon name="gps-fixed" size={200} color={'#de737b'} />
-    <Text style={styles.text}>Welcome to TU Delft! </Text>
-    <Text style={styles.text}>Explore the campus to unlock all stickers!</Text>
+    <Text style={styles.text}>Welcome to TU Delft!</Text>
+    <Text style={styles.text}>Explore the campus to get more information!</Text>
   </View>;
 
 export default Logo;

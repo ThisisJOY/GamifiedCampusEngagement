@@ -6,21 +6,24 @@ import {
   View,
   DeviceEventEmitter,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
+import moment from 'moment';
 import BeaconInfo from '../components/BeaconInfo';
 import Logo from '../components/Logo';
 import Container from '../components/Container';
-
 import { achievements } from '../config/data';
+
+const pikachu = require('../screens/images/001.png');
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#f96062',
     padding: 12,
-    margin: 16,
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -34,6 +37,15 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: -0.5,
+  },
 });
 
 class NearbyAndroid extends Component {
@@ -45,6 +57,7 @@ class NearbyAndroid extends Component {
     this.state = {
       uuidRef: '01122334-4556-6778-899a-abbccddeeff0',
       dataSource: ds.cloneWithRows([]),
+      isFirstModalVisible: true,
       isModalVisible: false,
       result: null,
     };
@@ -74,43 +87,49 @@ class NearbyAndroid extends Component {
   }
 
   hideModal = () => this.setState({ isModalVisible: false });
+  hideFirstModal = () => this.setState({ isFirstModalVisible: false });
 
   renderBeaconRow(beacon) {
-    // check if the detected beacon is one of our beacons
     achievements.forEach((achievement) => {
-      // achievement.isUnlocked = false;
-      if (beacon.major === achievement.major) {
-        achievement.isUnlocked = true;
-        return this.setState({ result: achievement, isModalVisible: true });
+      const beforeTime = moment(achievement.start);
+      const afterTime = moment(achievement.end);
+
+      const condition1 = achievement.type === 'site';
+      const condition2 =
+        achievement.type === 'event' &&
+        beforeTime &&
+        afterTime &&
+        moment().isBetween(beforeTime, afterTime);
+
+      if (achievement.isUnlocked === false && achievement.major === beacon.major) {
+        if (condition1 || condition2) {
+          achievement.isUnlocked = true;
+          return this.setState({ result: achievement, isModalVisible: true });
+        }
       }
+      return null;
     });
 
     return (
       <View>
         <Tile
           activeOpacity={1}
-          imageSrc={this.state.result.picture ? this.state.result.picture : null}
+          imageSrc={this.state.result.picture}
           featured
-          title={this.state.result.name ? this.state.result.name : null}
+          title={this.state.result.name}
         />
         <Container style={{ backgroundColor: 'lightskyblue' }}>
           <Text>Address</Text>
         </Container>
         <Text>
-          {`Gebouw ${this.state.result.locatieCode ? this.state.result.locatieCode : null}, ${this
-            .state.result.address.straat
-            ? this.state.result.address.straat
-            : null} ${this.state.result.address.huisnummer
-            ? this.state.result.address.huisnummer
-            : null}, ${this.state.result.address.postcode
-            ? this.state.result.address.postcode
-            : null} Delft`}
+          {`Gebouw ${this.state.result.locatieCode}, ${this.state.result.address.straat} ${this
+            .state.result.address.huisnummer}, ${this.state.result.address.postcode} Delft`}
         </Text>
         <Container style={{ backgroundColor: 'lightskyblue' }}>
           <Text>Description</Text>
         </Container>
         <Text>
-          {this.state.result.info ? this.state.result.info : null}
+          {this.state.result.info}
         </Text>
 
         <BeaconInfo beacon={beacon} />
@@ -125,6 +144,42 @@ class NearbyAndroid extends Component {
       return (
         <Container>
           <Logo />
+          <Modal
+            isVisible={this.state.isFirstModalVisible}
+            animationIn={'slideInUp'}
+            animationOut={'slideOutDown'}
+            style={styles.bottomModal}
+          >
+            <View style={styles.modalContent}>
+              <View style={{ height: 120, margin: 10 }}>
+                <Image
+                  source={pikachu}
+                  style={{ height: 80, width: 80, margin: 10 }}
+                  resizeMode="contain"
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    borderBottomWidth: 1,
+                    borderColor: '#e3e3e3',
+                    padding: 5,
+                  }}
+                >
+                  <Text style={{ fontSize: 11, color: '#777' }}>Newbie</Text>
+                </View>
+              </View>
+              <Text style={styles.text}>
+                Great! You have unlocked your first sticker! View your collection of stickers under
+                the Achievements Tab. Explore the campus to collect them all!
+              </Text>
+              <TouchableOpacity onPress={this.hideFirstModal}>
+                <View style={styles.button}>
+                  <Text>Dismiss</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Modal>
         </Container>
       );
     }
@@ -141,11 +196,32 @@ class NearbyAndroid extends Component {
             isVisible={this.state.isModalVisible}
             animationIn={'slideInUp'}
             animationOut={'slideOutDown'}
+            style={styles.bottomModal}
           >
             {this.state.result && this.state.result.isUnlocked
               ? <View style={styles.modalContent}>
-                <Text>
-                  {this.state.feedback ? this.state.feedback : ''}
+                <View style={{ height: 120, margin: 10 }}>
+                  <Image
+                    source={pikachu}
+                    style={{ height: 80, width: 80, margin: 10 }}
+                    resizeMode="contain"
+                  />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      borderBottomWidth: 1,
+                      borderColor: '#e3e3e3',
+                      padding: 5,
+                    }}
+                  >
+                    <Text style={{ fontSize: 11, color: '#777' }}>
+                      {this.state.achievementName || ''}
+                    </Text>
+                  </View>
+                </View>
+                <Text style={styles.text}>
+                  {this.state.feedback || ''}
                 </Text>
                 <TouchableOpacity onPress={this.hideModal}>
                   <View style={styles.button}>
@@ -162,12 +238,3 @@ class NearbyAndroid extends Component {
 }
 
 export default NearbyAndroid;
-
-// <Tile
-//   imageSrc={this.state.result.picture}
-//   featured
-//   title={this.state.result.name}
-//   caption={`Gebouw ${this.state.result.locatieCode}, ${this.state.result.address
-//     .straat} ${this.state.result.address.huisnummer}, ${this.state.result.address
-//     .postcode} Delft`}
-// />

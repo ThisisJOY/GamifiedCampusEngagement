@@ -44,37 +44,44 @@ const event01 = require('./images/event01.jpg');
 
 export const achievements = [
   {
-    type: 'site',
-    uuid: '01122334-4556-6778-899a-abbccddeeff0', // indication for the whole campus region
-    major: 772, // indication for the building
-    minor: 258, // indication for different corners in the same building
     achievementName: 'Newbie',
     image: pikachu,
     isUnlocked: true,
-    instruction: 'Visit Aula Conference Center to unlock this sticker!',
-    feedback: 'Yay! You unlocked your first sticker! Explore the campus to collect them all! ',
+    feedback:
+      'Great! You have unlocked your first sticker! Explore the campus to collect them all!',
+  },
+  {
+    type: 'site',
+    uuid: '01122334-4556-6778-899a-abbccddeeff0',
+    major: 772,
+    minor: 258,
+    achievementName: 'Adventurer',
+    image: chansey,
+    isUnlocked: false,
+    instruction: 'Visit Electrical Engineering to unlock this sticker!',
+    feedback: 'Congratulations! You have unlocked this sticker!',
     address: {
-      postcode: '2628 CC',
+      postcode: '2628 CD',
       straat: 'Mekelweg',
-      huisnummer: '5',
+      huisnummer: '4',
       plaats: 'Delft',
     },
-    gpscoordinaten: { '@lon': '52.0021', '@lat': '4.37325' },
-    name: 'Aula Conference Centre',
-    locatieCode: '20',
-    picture: aula,
+    gpscoordinaten: { '@lon': '51.99903', '@lat': '4.37323' },
+    name: 'Electrical Engineering, Mathematics and Computer Sciences',
+    locatieCode: '36',
+    picture: ewi,
     info:
-      'De combinatie van een Technische Universiteit, een gezellige oude stad, een goede bereikbaarheid en een perfecte outillage, maakt het Aula Congrescentrum een uiterst geschikte locatie voor congressen en andere wetenschappelijke of culturele bijeenkomsten.Het Aula Congrescentrum beschikt over 12 zalen van verschillende grootte, geschikt voor 10 tot 1200 personen. De zeer ruime Foyer, de verschillende vides en de entreehal met ontvangstbalie, maken het Aula Congrescentrum tot een unieke locatie.',
+      'The Faculty of Architecture and the Built Environment at TU Delft (Dutch: Faculteit Bouwkunde; abbr. BK ) is the largest faculty of the university with around 2900 students. It is also one of the top faculties of the TU Delft and was ranked 3rd in the world’s top universities for architecture & built environment in the QS World University Rankings by Subject 2015, following the Massachusetts Institute of Technology (MIT) and University College London (UCL).',
   },
   {
     type: 'event',
     uuid: '01122334-4556-6778-899a-abbccddeeff0',
     major: 258,
     minor: 772,
-    achievementName: 'Adventurer',
+    achievementName: 'Explorer',
     image: gyarados,
     isUnlocked: false,
-    instruction: 'You can unlock this stiker if you arrive in the event location on time!',
+    instruction: 'You can unlock this sticker if you attend Latitud Presents on time!',
     feedback: 'Congratulations! You have unlocked this sticker!',
     address: {
       postcode: '2629 HS',
@@ -84,11 +91,11 @@ export const achievements = [
     },
     gpscoordinaten: { '@lon': '51.99065', '@lat': '4.37756' },
     name: 'Latitud Presents',
-    start: '21:00 on Friday, 16/06/2017',
-    end: '03:00 on Sartuday, 17/06/2017',
+    start: 'Sunday, July 16, 2017 7:30 PM',
+    end: 'Sunday, July 16, 2017 10:00 PM',
     cost: '8.00 euro',
     locatieCode: '66',
-    picture: fellowship,
+    picture: event01,
     info:
       'The Faculty of Architecture and the Built Environment at TU Delft (Dutch: Faculteit Bouwkunde; abbr. BK ) is the largest faculty of the university with around 2900 students. It is also one of the top faculties of the TU Delft and was ranked 3rd in the world’s top universities for architecture & built environment in the QS World University Rankings by Subject 2015, following the Massachusetts Institute of Technology (MIT) and University College London (UCL).',
   },

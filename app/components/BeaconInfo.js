@@ -10,19 +10,19 @@ const BeaconInfo = ({ beacon }) =>
     </Container>
 
     <Text>
-      UUID: {beacon.uuid ? beacon.uuid : 'NA'}
+      UUID: {beacon.uuid || 'NA'}
     </Text>
     <Text>
-      Major: {beacon.major ? beacon.major : 'NA'}
+      Major: {beacon.major || 'NA'}
     </Text>
     <Text>
-      Minor: {beacon.minor ? beacon.minor : 'NA'}
+      Minor: {beacon.minor || 'NA'}
     </Text>
     <Text>
-      RSSI: {beacon.rssi ? beacon.rssi : 'NA'}
+      RSSI: {beacon.rssi || 'NA'}
     </Text>
     <Text>
-      Proximity: {beacon.proximity ? beacon.proximity : 'NA'}
+      Proximity: {beacon.proximity || 'NA'}
     </Text>
     <Text>
       Distance: {beacon.distance ? beacon.distance.toFixed(2) : 'NA'}m

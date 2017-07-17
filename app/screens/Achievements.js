@@ -11,13 +11,20 @@ const mystic = require('./images/mystic.png');
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 const TOTAL = achievements.length;
-const COUNT = 0;
+let COUNT = 0;
+
+achievements.forEach((achievement) => {
+  if (achievement.isUnlocked) {
+    COUNT += 1;
+  }
+});
+const WIDTH = 200;
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#f96062',
     padding: 12,
-    margin: 16,
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -30,6 +37,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: -0.5,
   },
 });
 
@@ -78,6 +90,7 @@ export default class Achievements extends Component {
         </TouchableOpacity>
       );
     }
+
     return (
       <TouchableOpacity onPress={() => this.showModal(val)}>
         <View style={{ height: 120, margin: 10 }}>
@@ -121,12 +134,12 @@ export default class Achievements extends Component {
           />
           <View style={{ height: 12, width: 200 }}>
             <Text style={{ color: '#000000', fontWeight: '600', fontSize: 12 }}>
-              You have unlocked 10 of 20 stickers. Don not wait, collect them all!
+              {`You have unlocked ${COUNT} of ${TOTAL} stickers. Don not wait, collect them all!`}
             </Text>
             <View
               style={{
                 height: 10,
-                width: 200,
+                width: WIDTH,
                 borderColor: '#FF0000',
                 marginTop: 3,
                 borderWidth: 1,
@@ -136,7 +149,7 @@ export default class Achievements extends Component {
               <View
                 style={{
                   height: 8,
-                  width: 100,
+                  width: COUNT / TOTAL / 0.005,
                   backgroundColor: '#f96062',
                   borderRadius: 5,
                 }}
@@ -162,7 +175,7 @@ export default class Achievements extends Component {
         >
           {this.state.achievement && this.state.achievement.isUnlocked
             ? <View style={styles.modalContent}>
-              <Text>
+              <Text style={styles.text}>
                 {this.state.achievement && this.state.achievement.feedback
                     ? this.state.achievement.feedback
                     : ''}
@@ -174,7 +187,7 @@ export default class Achievements extends Component {
               </TouchableOpacity>
             </View>
             : <View style={styles.modalContent}>
-              <Text>
+              <Text style={styles.text}>
                 {this.state.achievement && this.state.achievement.instruction
                     ? this.state.achievement.instruction
                     : ''}
