@@ -4,7 +4,9 @@ import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     fontWeight: '600',
