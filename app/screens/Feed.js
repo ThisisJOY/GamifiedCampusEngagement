@@ -7,8 +7,6 @@ import { achievements } from '../config/data';
 const sites = [];
 const events = [];
 
-console.log(achievements);
-
 achievements.forEach((achievement) => {
   if (achievement.type && achievement.type === 'site') {
     sites.push(achievement);

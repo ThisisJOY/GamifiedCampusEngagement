@@ -53,13 +53,15 @@ export const achievements = [
   {
     type: 'site',
     uuid: '01122334-4556-6778-899a-abbccddeeff0',
-    major: 772,
-    minor: 258,
+    major: 1381,
+    minor: 3906,
     achievementName: 'Adventurer',
     image: chansey,
     isUnlocked: false,
-    instruction: 'Visit Electrical Engineering to unlock this sticker!',
-    feedback: 'Congratulations! You have unlocked this sticker!',
+    instruction:
+      'Visit Electrical Engineering, Mathematics and Computer Sciences to unlock this sticker!',
+    feedback:
+      'Congratulations! You are now an adventurer! Do not wait! Continue to collect them all!',
     address: {
       postcode: '2628 CD',
       straat: 'Mekelweg',
@@ -82,7 +84,8 @@ export const achievements = [
     image: gyarados,
     isUnlocked: false,
     instruction: 'You can unlock this sticker if you attend Latitud Presents on time!',
-    feedback: 'Congratulations! You have unlocked this sticker!',
+    feedback:
+      'Congratulations! You are now an explorer! Do not wait! Continue to collect them all!!',
     address: {
       postcode: '2629 HS',
       straat: 'Kluyverweg',

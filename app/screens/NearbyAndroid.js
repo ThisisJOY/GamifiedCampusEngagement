@@ -17,7 +17,9 @@ import Logo from '../components/Logo';
 import Container from '../components/Container';
 import { achievements } from '../config/data';
 
-const pikachu = require('../screens/images/001.png');
+const pikachu = require('./images/001.png');
+
+let item = null;
 
 const styles = StyleSheet.create({
   button: {
@@ -58,8 +60,7 @@ class NearbyAndroid extends Component {
       uuidRef: '01122334-4556-6778-899a-abbccddeeff0',
       dataSource: ds.cloneWithRows([]),
       isFirstModalVisible: true,
-      isModalVisible: false,
-      result: null,
+      isModalVisible: true,
     };
   }
 
@@ -86,53 +87,85 @@ class NearbyAndroid extends Component {
     this.beaconsDidRange = null;
   }
 
-  hideModal = () => this.setState({ isModalVisible: false });
-  hideFirstModal = () => this.setState({ isFirstModalVisible: false });
+  hideModal = () => {
+    this.setState({ isModalVisible: false });
+  };
+  hideFirstModal = () => {
+    this.setState({ isFirstModalVisible: false });
+  };
 
   renderBeaconRow(beacon) {
     achievements.forEach((achievement) => {
-      const beforeTime = moment(achievement.start);
-      const afterTime = moment(achievement.end);
-
-      const condition1 = achievement.type === 'site';
-      const condition2 =
-        achievement.type === 'event' &&
-        beforeTime &&
-        afterTime &&
-        moment().isBetween(beforeTime, afterTime);
-
-      if (achievement.isUnlocked === false && achievement.major === beacon.major) {
-        if (condition1 || condition2) {
-          achievement.isUnlocked = true;
-          return this.setState({ result: achievement, isModalVisible: true });
-        }
+      if (achievement.major === beacon.major) {
+        achievement.isUnlocked = true;
+        // console.log(achievements);
+        return (item = achievement);
       }
-      return null;
+      return item;
     });
 
     return (
       <View>
-        <Tile
-          activeOpacity={1}
-          imageSrc={this.state.result.picture}
-          featured
-          title={this.state.result.name}
-        />
-        <Container style={{ backgroundColor: 'lightskyblue' }}>
-          <Text>Address</Text>
-        </Container>
-        <Text>
-          {`Gebouw ${this.state.result.locatieCode}, ${this.state.result.address.straat} ${this
-            .state.result.address.huisnummer}, ${this.state.result.address.postcode} Delft`}
-        </Text>
-        <Container style={{ backgroundColor: 'lightskyblue' }}>
-          <Text>Description</Text>
-        </Container>
-        <Text>
-          {this.state.result.info}
-        </Text>
-
-        <BeaconInfo beacon={beacon} />
+        {item
+          ? <View>
+            <Tile activeOpacity={1} imageSrc={item.picture} featured title={item.name} />
+            <Container style={{ backgroundColor: 'lightskyblue' }}>
+              <Text>Address</Text>
+            </Container>
+            <Text>
+              {`Gebouw ${item.locatieCode}, ${item.address.straat} ${item.address
+                  .huisnummer}, ${item.address.postcode} Delft`}
+            </Text>
+            <Container style={{ backgroundColor: 'lightskyblue' }}>
+              <Text>Description</Text>
+            </Container>
+            <Text>
+              {item.info}
+            </Text>
+            <BeaconInfo beacon={beacon} />
+            {
+              <Modal
+                isVisible={this.state.isModalVisible}
+                animationIn={'slideInUp'}
+                animationOut={'slideOutDown'}
+                style={styles.bottomModal}
+              >
+                {item.isUnlocked
+                    ? <View style={styles.modalContent}>
+                      <View style={{ height: 120, margin: 10 }}>
+                        <Image
+                          source={item.image}
+                          style={{ height: 80, width: 80, margin: 10 }}
+                          resizeMode="contain"
+                        />
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            borderBottomWidth: 1,
+                            borderColor: '#e3e3e3',
+                            padding: 5,
+                          }}
+                        >
+                          <Text style={{ fontSize: 11, color: '#777' }}>
+                            {item.achievementName || ''}
+                          </Text>
+                        </View>
+                      </View>
+                      <Text style={styles.text}>
+                        {item.feedback || ''}
+                      </Text>
+                      <TouchableOpacity onPress={this.hideModal}>
+                        <View style={styles.button}>
+                          <Text>Dismiss</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    : null}
+              </Modal>
+              }
+          </View>
+          : <Logo />}
       </View>
     );
   }
@@ -191,47 +224,6 @@ class NearbyAndroid extends Component {
           enableEmptySections
           renderRow={beacon => this.renderBeaconRow(beacon)}
         />
-        {
-          <Modal
-            isVisible={this.state.isModalVisible}
-            animationIn={'slideInUp'}
-            animationOut={'slideOutDown'}
-            style={styles.bottomModal}
-          >
-            {this.state.result && this.state.result.isUnlocked
-              ? <View style={styles.modalContent}>
-                <View style={{ height: 120, margin: 10 }}>
-                  <Image
-                    source={pikachu}
-                    style={{ height: 80, width: 80, margin: 10 }}
-                    resizeMode="contain"
-                  />
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-around',
-                      borderBottomWidth: 1,
-                      borderColor: '#e3e3e3',
-                      padding: 5,
-                    }}
-                  >
-                    <Text style={{ fontSize: 11, color: '#777' }}>
-                      {this.state.achievementName || ''}
-                    </Text>
-                  </View>
-                </View>
-                <Text style={styles.text}>
-                  {this.state.feedback || ''}
-                </Text>
-                <TouchableOpacity onPress={this.hideModal}>
-                  <View style={styles.button}>
-                    <Text>Dismiss</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              : null}
-          </Modal>
-        }
       </View>
     );
   }
