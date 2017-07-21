@@ -53,11 +53,11 @@ export const achievements = [
   {
     type: 'site',
     uuid: '01122334-4556-6778-899a-abbccddeeff0',
-    major: 2812,
-    minor: 2735,
+    major: 772,
+    minor: 258,
     achievementName: 'Adventurer',
     image: chansey,
-    isUnlocked: false,
+    isUnlocked: true,
     instruction:
       'Visit Electrical Engineering, Mathematics and Computer Sciences to unlock this sticker!',
     feedback:

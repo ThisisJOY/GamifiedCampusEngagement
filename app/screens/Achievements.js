@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import { Image, Text, TouchableOpacity, ListView, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-
-import { achievements } from '../config/data';
 
 const physcBack = require('./images/physcBack.jpg');
 const congratulations = require('./images/congratulations.png');
 const mystic = require('./images/mystic.png');
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-const TOTAL = achievements.length;
-let COUNT = 0;
 
-achievements.forEach((achievement) => {
-  if (achievement.isUnlocked) {
-    COUNT += 1;
-  }
-});
 const WIDTH = 200;
 
 const styles = StyleSheet.create({
@@ -45,15 +37,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Achievements extends Component {
+class Achievements extends Component {
   static propTypes = {
-    navigation: PropTypes.object,
+    achievements: PropTypes.array,
+    count: PropTypes.number,
   };
   constructor(props) {
     super(props);
 
     this.state = {
-      dataSource: ds.cloneWithRows(achievements),
       isModalVisible: false,
       achievement: null,
     };
@@ -134,7 +126,8 @@ export default class Achievements extends Component {
           />
           <View style={{ height: 12, width: 200 }}>
             <Text style={{ color: '#000000', fontWeight: '600', fontSize: 12 }}>
-              {`You have unlocked ${COUNT} of ${TOTAL} stickers. Don not wait, collect them all!`}
+              {`You have unlocked ${this.props.count} of ${this.props.achievements
+                .length} stickers. Don not wait, collect them all!`}
             </Text>
             <View
               style={{
@@ -149,7 +142,7 @@ export default class Achievements extends Component {
               <View
                 style={{
                   height: 8,
-                  width: COUNT / TOTAL / 0.005,
+                  width: this.props.count / this.props.achievements.length / 0.005,
                   backgroundColor: '#f96062',
                   borderRadius: 5,
                 }}
@@ -158,7 +151,7 @@ export default class Achievements extends Component {
           </View>
         </Image>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={ds.cloneWithRows(this.props.achievements)}
           style={{ height: 390 }}
           contentContainerStyle={{
             justifyContent: 'space-around',
@@ -203,3 +196,10 @@ export default class Achievements extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  achievements: state.achievements.achievements,
+  count: state.achievements.count,
+});
+
+export default connect(mapStateToProps)(Achievements);

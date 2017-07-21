@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
@@ -15,7 +17,7 @@ import moment from 'moment';
 import BeaconInfo from '../components/BeaconInfo';
 import Logo from '../components/Logo';
 import Container from '../components/Container';
-import { achievements } from '../config/data';
+import { unlockAchievementIfBeaconDetected } from '../actions/achievements';
 
 const pikachu = require('./images/001.png');
 
@@ -51,6 +53,12 @@ const styles = StyleSheet.create({
 });
 
 class NearbyAndroid extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+    achievements: PropTypes.array,
+    result: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({
@@ -79,6 +87,9 @@ class NearbyAndroid extends Component {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(data.beacons),
         });
+        if (data.beacons[0] != null) {
+          this.props.dispatch(unlockAchievementIfBeaconDetected(data.beacons[0]));
+        }
       }
     });
   }
@@ -95,18 +106,19 @@ class NearbyAndroid extends Component {
   };
 
   renderBeaconRow(beacon) {
-    achievements.forEach((achievement) => {
-      if (achievement.major === beacon.major) {
-        achievement.isUnlocked = true;
-        // console.log(achievements);
-        return (item = achievement);
-      }
-      return item;
-    });
+    item = this.props.result;
 
     return (
       <View>
-        {item
+        {item &&
+        item.picture &&
+        item.name &&
+        item.locatieCode &&
+        item.address.straat &&
+        item.address.huisnummer &&
+        item.address.postcode &&
+        item.image &&
+        item.achievementName
           ? <View>
             <Tile activeOpacity={1} imageSrc={item.picture} featured title={item.name} />
             <Container style={{ backgroundColor: 'lightskyblue' }}>
@@ -125,43 +137,41 @@ class NearbyAndroid extends Component {
             <BeaconInfo beacon={beacon} />
             {
               <Modal
-                isVisible={this.state.isModalVisible}
+                isVisible={this.state.isModalVisible && item.isUnlocked}
                 animationIn={'slideInUp'}
                 animationOut={'slideOutDown'}
                 style={styles.bottomModal}
               >
-                {item.isUnlocked
-                    ? <View style={styles.modalContent}>
-                      <View style={{ height: 120, margin: 10 }}>
-                        <Image
-                          source={item.image}
-                          style={{ height: 80, width: 80, margin: 10 }}
-                          resizeMode="contain"
-                        />
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
-                            borderBottomWidth: 1,
-                            borderColor: '#e3e3e3',
-                            padding: 5,
-                          }}
-                        >
-                          <Text style={{ fontSize: 11, color: '#777' }}>
-                            {item.achievementName || ''}
-                          </Text>
-                        </View>
-                      </View>
-                      <Text style={styles.text}>
-                        {item.feedback || ''}
+                <View style={styles.modalContent}>
+                  <View style={{ height: 120, margin: 10 }}>
+                    <Image
+                      source={item.image}
+                      style={{ height: 80, width: 80, margin: 10 }}
+                      resizeMode="contain"
+                    />
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        borderBottomWidth: 1,
+                        borderColor: '#e3e3e3',
+                        padding: 5,
+                      }}
+                    >
+                      <Text style={{ fontSize: 11, color: '#777' }}>
+                        {item.achievementName || ''}
                       </Text>
-                      <TouchableOpacity onPress={this.hideModal}>
-                        <View style={styles.button}>
-                          <Text>Dismiss</Text>
-                        </View>
-                      </TouchableOpacity>
                     </View>
-                    : null}
+                  </View>
+                  <Text style={styles.text}>
+                    {item.feedback || ''}
+                  </Text>
+                  <TouchableOpacity onPress={this.hideModal}>
+                    <View style={styles.button}>
+                      <Text>Dismiss</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </Modal>
               }
           </View>
@@ -203,8 +213,9 @@ class NearbyAndroid extends Component {
                 </View>
               </View>
               <Text style={styles.text}>
-                Great! You have unlocked your first sticker! View your collection of stickers under
-                the Achievements Tab. Explore the campus to collect them all!
+                Enjoy this sticker because you have lauched our awesome App! View your
+                collection of stickers under the Achievements Tab. Explore the campus to collect
+                them all!
               </Text>
               <TouchableOpacity onPress={this.hideFirstModal}>
                 <View style={styles.button}>
@@ -229,4 +240,9 @@ class NearbyAndroid extends Component {
   }
 }
 
-export default NearbyAndroid;
+const mapStateToProps = state => ({
+  achievements: state.achievements.achievements,
+  result: state.achievements.result,
+});
+
+export default connect(mapStateToProps)(NearbyAndroid);
