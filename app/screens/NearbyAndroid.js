@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
-import moment from 'moment';
 import BeaconInfo from '../components/BeaconInfo';
 import Logo from '../components/Logo';
 import Container from '../components/Container';
