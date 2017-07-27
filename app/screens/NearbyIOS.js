@@ -21,7 +21,6 @@ const disabled = false;
 class NearbyIOS extends Component {
   constructor(props) {
     super(props);
-    // Create our dataSource which will be displayed in the ListView
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
     });

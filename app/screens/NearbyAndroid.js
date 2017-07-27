@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 class NearbyAndroid extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
-    achievements: PropTypes.array,
+    // achievements: PropTypes.array,
     result: PropTypes.object,
   };
 
@@ -105,8 +105,6 @@ class NearbyAndroid extends Component {
   renderBeaconRow(beacon) {
     item = this.props.result;
 
-    // TO DO change image to uri
-    // TO DO item ? ... item.picture || defaultPicture(imagenotfound) item.name || 'NA'...
     return (
       <View>
         {item
@@ -133,8 +131,8 @@ class NearbyAndroid extends Component {
               <Text>Address</Text>
             </Container>
             <Text>
-              {`Gebouw ${item.locatieCode || ''}, ${item.address.straat || ''} ${item.address
-                  .huisnummer || ''}, ${item.address.postcode} Delft` || ''}
+              {`Gebouw ${item.locatieCode ? item.locatieCode : ''}, ${item.address.straat ? item.address.straat : ''} ${item.address
+                  .huisnummer ? item.address.huisnummer : ''}, ${item.address.postcode ? item.address.postcode : ''} Delft`}
             </Text>
             <Container style={{ backgroundColor: 'lightskyblue' }}>
               <Text>Description</Text>
