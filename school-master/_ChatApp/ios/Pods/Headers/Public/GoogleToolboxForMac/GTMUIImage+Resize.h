@@ -1,1 +1,0 @@
-../../../GoogleToolboxForMac/iPhone/GTMUIImage+Resize.h
