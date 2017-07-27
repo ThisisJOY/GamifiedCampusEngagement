@@ -6,12 +6,23 @@ import Container from './Container';
 
 const Detail = ({ achievement }) =>
   <ScrollView>
-    <Tile
-      activeOpacity={1}
-      imageSrc={achievement.picture ? achievement.picture : ''}
-      featured
-      title={achievement.name ? achievement.name : ''}
-    />
+    {achievement.picture && achievement.picture.length > 0
+      ? <Tile
+        activeOpacity={1}
+        imageSrc={{
+          uri: achievement.picture,
+        }}
+        featured
+        title={achievement.name ? achievement.name : ''}
+      />
+      : <Tile
+        activeOpacity={1}
+        imageSrc={{
+          uri: 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg',
+        }}
+        featured
+        title={achievement.name ? achievement.name : ''}
+      />}
     <Container style={{ backgroundColor: 'lightskyblue' }}>
       <Text>Address</Text>
     </Container>

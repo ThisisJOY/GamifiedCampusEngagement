@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "color": "^1.0.3",
+    "firebase": "^4.1.5",
     "moment": "^2.18.1",
     "native-base": "^2.3.0",
     "prop-types": "^15.5.10",

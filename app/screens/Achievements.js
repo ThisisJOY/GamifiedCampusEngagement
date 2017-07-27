@@ -3,6 +3,7 @@ import { Image, Text, TouchableOpacity, ListView, View, StyleSheet } from 'react
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
+// import { readAdminAchievements } from '../actions/achievements';
 
 const physcBack = require('./images/physcBack.jpg');
 const congratulations = require('./images/congratulations.png');
@@ -41,6 +42,7 @@ class Achievements extends Component {
   static propTypes = {
     achievements: PropTypes.array,
     count: PropTypes.number,
+    dispatch: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -50,6 +52,10 @@ class Achievements extends Component {
       achievement: null,
     };
   }
+
+  // componentDidMount() {
+  //   this.props.dispatch(readAdminAchievements);
+  // }
 
   showModal(achievement) {
     this.setState({ isModalVisible: true, achievement });
@@ -86,11 +92,21 @@ class Achievements extends Component {
     return (
       <TouchableOpacity onPress={() => this.showModal(val)}>
         <View style={{ height: 120, margin: 10 }}>
-          <Image
-            source={val.image}
-            style={{ height: 80, width: 80, margin: 10 }}
-            resizeMode="contain"
-          />
+          {val.image && val.image.length > 0
+            ? <Image
+              source={{
+                uri: val.image,
+              }}
+              style={{ height: 80, width: 80, margin: 10 }}
+              resizeMode="contain"
+            />
+            : <Image
+              source={{
+                uri: 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg',
+              }}
+              style={{ height: 80, width: 80, margin: 10 }}
+              resizeMode="contain"
+            />}
           <View
             style={{
               flexDirection: 'row',
@@ -101,7 +117,7 @@ class Achievements extends Component {
             }}
           >
             <Text style={{ fontSize: 11, color: '#777' }}>
-              {val.achievementName}
+              {val.achievementName || ''}
             </Text>
           </View>
         </View>
@@ -126,8 +142,8 @@ class Achievements extends Component {
           />
           <View style={{ height: 12, width: 200 }}>
             <Text style={{ color: '#000000', fontWeight: '600', fontSize: 12 }}>
-              {`You have unlocked ${this.props.count} of ${this.props.achievements
-                .length} stickers. Don not wait, collect them all!`}
+              {`You have unlocked ${this.props.count || 0} of ${this.props.achievements.length ||
+                0} stickers. Don not wait, collect them all!`}
             </Text>
             <View
               style={{
@@ -142,7 +158,7 @@ class Achievements extends Component {
               <View
                 style={{
                   height: 8,
-                  width: this.props.count / this.props.achievements.length / 0.005,
+                  width: this.props.count / this.props.achievements.length / 0.005 || 0,
                   backgroundColor: '#f96062',
                   borderRadius: 5,
                 }}

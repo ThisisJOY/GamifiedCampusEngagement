@@ -2,23 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
-import { achievements } from '../config/data';
-
-const sites = [];
-const events = [];
-
-achievements.forEach((achievement) => {
-  if (achievement.type && achievement.type === 'site') {
-    sites.push(achievement);
-  } else if (achievement.type && achievement.type === 'event') {
-    events.push(achievement);
-  }
-});
+import { connect } from 'react-redux';
+import { readSitesAndEvents } from '../actions/achievements';
 
 class Feed extends Component {
   static propTypes = {
     navigation: PropTypes.object,
+    dispatch: PropTypes.func,
+    sites: PropTypes.array,
+    events: PropTypes.array,
   };
+
+  componentDidMount() {
+    this.props.dispatch(readSitesAndEvents());
+  }
 
   onLearnMore = (item) => {
     this.props.navigation.navigate('Details', { ...item });
@@ -27,7 +24,7 @@ class Feed extends Component {
   render() {
     const { screen } = this.props.navigation.state.params;
 
-    const dataSource = screen === 'Sites' ? sites : events;
+    const dataSource = screen === 'Sites' ? this.props.sites : this.props.events;
 
     return (
       <ScrollView>
@@ -36,7 +33,7 @@ class Feed extends Component {
             <ListItem
               key={item.name}
               roundAvatar
-              avatar={item.picture}
+              avatar={{ uri: item.picture }}
               title={item.name}
               onPress={() => this.onLearnMore(item)}
             />,
@@ -46,5 +43,10 @@ class Feed extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  achievements: state.achievements.achievements,
+  sites: state.achievements.sites,
+  events: state.achievements.events,
+});
 
-export default Feed;
+export default connect(mapStateToProps)(Feed);

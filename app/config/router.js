@@ -57,9 +57,22 @@ export const Tabs = TabNavigator(
 export const SitesStack = StackNavigator({
   Sites: {
     screen: Feed,
-    navigationOptions: {
-      title: 'Sites',
-    },
+    // navigationOptions: {
+    // title: 'Sites',
+    // },
+
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.screen}`,
+      headerLeft: (
+        <Icon
+          name={'chevron-left'}
+          size={30}
+          onPress={() => {
+            navigation.navigate('Campus');
+          }}
+        />
+      ),
+    }),
   },
   Details: {
     screen: Details,
@@ -72,9 +85,21 @@ export const SitesStack = StackNavigator({
 export const EventsStack = StackNavigator({
   Events: {
     screen: Feed,
-    navigationOptions: {
-      title: 'Events',
-    },
+    // navigationOptions: {
+    //   title: 'Events',
+    // },
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.screen}`,
+      headerLeft: (
+        <Icon
+          name={'chevron-left'}
+          size={30}
+          onPress={() => {
+            navigation.navigate('Campus');
+          }}
+        />
+      ),
+    }),
   },
   Details: {
     screen: Details,

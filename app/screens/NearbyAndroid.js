@@ -18,8 +18,6 @@ import Logo from '../components/Logo';
 import Container from '../components/Container';
 import { unlockAchievementIfBeaconDetected } from '../actions/achievements';
 
-const pikachu = require('./images/001.png');
-
 let item = null;
 
 const styles = StyleSheet.create({
@@ -107,31 +105,42 @@ class NearbyAndroid extends Component {
   renderBeaconRow(beacon) {
     item = this.props.result;
 
+    // TO DO change image to uri
+    // TO DO item ? ... item.picture || defaultPicture(imagenotfound) item.name || 'NA'...
     return (
       <View>
-        {item &&
-        item.picture &&
-        item.name &&
-        item.locatieCode &&
-        item.address.straat &&
-        item.address.huisnummer &&
-        item.address.postcode &&
-        item.image &&
-        item.achievementName
+        {item
           ? <View>
-            <Tile activeOpacity={1} imageSrc={item.picture} featured title={item.name} />
+            {item.picture && item.picture.length > 0
+                ? <Tile
+                  activeOpacity={1}
+                  imageSrc={{
+                    uri: item.picture,
+                  }}
+                  featured
+                  title={item.name || ''}
+                />
+                : <Tile
+                  activeOpacity={1}
+                  imageSrc={{
+                    uri:
+                        'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
+                  }}
+                  featured
+                  title={item.name || ''}
+                />}
             <Container style={{ backgroundColor: 'lightskyblue' }}>
               <Text>Address</Text>
             </Container>
             <Text>
-              {`Gebouw ${item.locatieCode}, ${item.address.straat} ${item.address
-                  .huisnummer}, ${item.address.postcode} Delft`}
+              {`Gebouw ${item.locatieCode || ''}, ${item.address.straat || ''} ${item.address
+                  .huisnummer || ''}, ${item.address.postcode} Delft` || ''}
             </Text>
             <Container style={{ backgroundColor: 'lightskyblue' }}>
               <Text>Description</Text>
             </Container>
             <Text>
-              {item.info}
+              {item.info || ''}
             </Text>
             <BeaconInfo beacon={beacon} />
             {
@@ -144,7 +153,11 @@ class NearbyAndroid extends Component {
                 <View style={styles.modalContent}>
                   <View style={{ height: 120, margin: 10 }}>
                     <Image
-                      source={item.image}
+                      source={{
+                        uri:
+                            item.image ||
+                            'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
+                      }}
                       style={{ height: 80, width: 80, margin: 10 }}
                       resizeMode="contain"
                     />
@@ -195,7 +208,10 @@ class NearbyAndroid extends Component {
             <View style={styles.modalContent}>
               <View style={{ height: 120, margin: 10 }}>
                 <Image
-                  source={pikachu}
+                  source={{
+                    uri:
+                      'https://s-media-cache-ak0.pinimg.com/originals/0a/9c/8a/0a9c8a649b9ba8aa62c7fcaa86414019.png',
+                  }}
                   style={{ height: 80, width: 80, margin: 10 }}
                   resizeMode="contain"
                 />
@@ -212,9 +228,8 @@ class NearbyAndroid extends Component {
                 </View>
               </View>
               <Text style={styles.text}>
-                Enjoy this sticker because you have lauched our awesome App! View your
-                collection of stickers under the Achievements Tab. Explore the campus to collect
-                them all!
+                Enjoy this sticker because you have lauched our awesome App! View your collection of
+                stickers under the Achievements Tab. Explore the campus to collect them all!
               </Text>
               <TouchableOpacity onPress={this.hideFirstModal}>
                 <View style={styles.button}>
