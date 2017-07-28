@@ -3,6 +3,9 @@ import {
   READ_SITES_AND_EVENTS,
   GET_ADMIN_ACHIEVEMENTS_REQUESTED,
   GET_ADMIN_ACHIEVEMENTS_FULFILLED,
+  ADD_TO_USER_REQUESTED,
+  ADD_TO_USER_FULFILLED,
+  ADD_TIMESTAMP_TO_LOGGER,
 } from '../actions/achievements';
 
 const initialState = {
@@ -29,6 +32,24 @@ export default (state = initialState, action) => {
         sites: action.adminAchievements.filter(achievement => achievement.type === 'site'),
         events: action.adminAchievements.filter(achievement => achievement.type === 'event'),
       });
+      return newState;
+    }
+
+    case ADD_TO_USER_REQUESTED: {
+      return Object.assign({}, state, {
+        inProgress: true,
+        error: '',
+        success: '',
+      });
+    }
+    case ADD_TO_USER_FULFILLED: {
+      const newState = Object.assign({}, state, {
+        inProgress: false,
+        success: 'Added user.',
+      });
+      newState.deviceName = newState.deviceName || [];
+      newState.deviceName = newState.deviceName.slice();
+      newState.deviceName.push(action.deviceName);
       return newState;
     }
 
@@ -61,12 +82,21 @@ export default (state = initialState, action) => {
           achievement => achievement.major === action.beacon.major,
         )[0],
         count: state.achievements.filter(achievement => achievement.isUnlocked).length,
+        beacon: action.beacon,
       };
     case READ_SITES_AND_EVENTS:
       return {
         ...state,
         sites: state.achievements.filter(achievement => achievement.type === 'site'),
         events: state.achievements.filter(achievement => achievement.type === 'event'),
+      };
+    case ADD_TIMESTAMP_TO_LOGGER:
+      return {
+        ...state,
+        timestamp: action.timestamp,
+        beaconInfo: action.beaconInfo,
+        achievements: state.achievements,
+        count: state.count,
       };
     default:
       return state;

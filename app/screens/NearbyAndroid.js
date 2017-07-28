@@ -13,10 +13,17 @@ import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
+import DeviceInfo from 'react-native-device-info';
+import moment from 'moment';
 import BeaconInfo from '../components/BeaconInfo';
 import Logo from '../components/Logo';
 import Container from '../components/Container';
-import { unlockAchievementIfBeaconDetected } from '../actions/achievements';
+import { unlockAchievementIfBeaconDetected, addToUser, addToLogger } from '../actions/achievements';
+
+const deviceUniqueId = DeviceInfo.getUniqueID();
+const deviceManufacturer = DeviceInfo.getManufacturer();
+const deviceName = DeviceInfo.getSystemName();
+const deviceVersion = DeviceInfo.getSystemVersion();
 
 let item = null;
 
@@ -52,8 +59,10 @@ const styles = StyleSheet.create({
 class NearbyAndroid extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
-    // achievements: PropTypes.array,
     result: PropTypes.object,
+    beacon: PropTypes.object,
+    achievements: PropTypes.array,
+    count: PropTypes.number,
   };
 
   constructor(props) {
@@ -79,6 +88,20 @@ class NearbyAndroid extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(addToUser(deviceUniqueId, deviceManufacturer, deviceName, deviceVersion));
+    this.logInfo = setInterval(
+      () =>
+        this.props.dispatch(
+          addToLogger(
+            deviceUniqueId,
+            moment().format(),
+            this.props.beacon,
+            this.props.achievements,
+            this.props.count,
+          ),
+        ),
+      5000,
+    );
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
       if (data.beacons != null) {
         this.setState({
@@ -93,6 +116,7 @@ class NearbyAndroid extends Component {
 
   componentWillUnMount() {
     this.beaconsDidRange = null;
+    clearInterval(this.logInfo);
   }
 
   hideModal = () => {
@@ -131,8 +155,12 @@ class NearbyAndroid extends Component {
               <Text>Address</Text>
             </Container>
             <Text>
-              {`Gebouw ${item.locatieCode ? item.locatieCode : ''}, ${item.address.straat ? item.address.straat : ''} ${item.address
-                  .huisnummer ? item.address.huisnummer : ''}, ${item.address.postcode ? item.address.postcode : ''} Delft`}
+              {`Gebouw ${item.locatieCode ? item.locatieCode : ''}, ${item.address.straat
+                  ? item.address.straat
+                  : ''} ${item.address.huisnummer ? item.address.huisnummer : ''}, ${item.address
+                  .postcode
+                  ? item.address.postcode
+                  : ''} Delft`}
             </Text>
             <Container style={{ backgroundColor: 'lightskyblue' }}>
               <Text>Description</Text>
@@ -254,7 +282,9 @@ class NearbyAndroid extends Component {
 
 const mapStateToProps = state => ({
   achievements: state.achievements.achievements,
+  count: state.achievements.count,
   result: state.achievements.result,
+  beacon: state.achievements.beacon,
 });
 
 export default connect(mapStateToProps)(NearbyAndroid);
