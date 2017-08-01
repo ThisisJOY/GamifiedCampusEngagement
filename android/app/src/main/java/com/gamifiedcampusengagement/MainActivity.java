@@ -1,6 +1,8 @@
 package com.gamifiedcampusengagement;
 
 import com.facebook.react.ReactActivity;
+import com.evollu.react.fa.FIRAnalyticsPackage;
+import com.ocetnik.timer.BackgroundTimerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {

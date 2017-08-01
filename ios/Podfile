@@ -1,0 +1,3 @@
+ workspace 'gamifiedCampusEngagement.xcodeproj'
+
+ pod 'Firebase/Core'

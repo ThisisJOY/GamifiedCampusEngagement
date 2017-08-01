@@ -23,6 +23,7 @@
     "react-native-device-info": "^0.10.2",
     "react-native-elements": "^0.13.0",
     "react-native-extended-stylesheet": "^0.4.0",
+    "react-native-firebase-analytics": "^3.0.1",
     "react-native-modal": "^2.4.0",
     "react-native-popup-dialog": "^0.9.29",
     "react-native-vector-icons": "^4.2.0",

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
+import Analytics from 'react-native-firebase-analytics';
 import { readSitesAndEvents } from '../actions/achievements';
 
 class Feed extends Component {
@@ -13,11 +14,18 @@ class Feed extends Component {
     events: PropTypes.array,
   };
 
+  componentWillMount() {
+    Analytics.setScreenName('Feed');
+  }
+
   componentDidMount() {
     this.props.dispatch(readSitesAndEvents());
   }
 
   onLearnMore = (item) => {
+    Analytics.logEvent('navigate_to_learn_more', {
+      navigate_to_learn_more: item.name || 'NA',
+    });
     this.props.navigation.navigate('Details', { ...item });
   };
 
@@ -29,15 +37,17 @@ class Feed extends Component {
     return (
       <ScrollView>
         <List>
-          {dataSource.map(item =>
-            <ListItem
-              key={item.name}
-              roundAvatar
-              avatar={{ uri: item.picture }}
-              title={item.name}
-              onPress={() => this.onLearnMore(item)}
-            />,
-          )}
+          {dataSource
+            ? dataSource.map(item =>
+              <ListItem
+                key={item.name}
+                roundAvatar
+                avatar={{ uri: item.picture }}
+                title={item.name}
+                onPress={() => this.onLearnMore(item)}
+              />,
+              )
+            : null}
         </List>
       </ScrollView>
     );

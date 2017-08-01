@@ -1,18 +1,34 @@
 import database from './database';
 
-export const GET_ADMIN_ACHIEVEMENTS_REQUESTED = 'GET_ADMIN_ACHIEVEMENTS_REQUESTED';
-export const GET_ADMIN_ACHIEVEMENTS_FULFILLED = 'GET_ADMIN_ACHIEVEMENTS_FULFILLED';
+export const GET_ADMIN_REQUESTED = 'GET_ADMIN_REQUESTED';
+export const GET_ADMIN_FULFILLED = 'GET_ADMIN_FULFILLED';
 export const ADD_TO_USER_REQUESTED = 'ADD_TO_USER_REQUESTED';
+export const ADD_TO_USER_REJECTED = 'ADD_TO_USER_REJECTED';
 export const ADD_TO_USER_FULFILLED = 'ADD_TO_USER_FULFILLED';
 export const USER_ADDED = 'USER_ADDED';
 
 export const UNLOCK_ACHIEVEMENT_IF_BEACON_DETECTED = 'UNLOCK_ACHIEVEMENT_IF_BEACON_DETECTED';
 export const READ_SITES_AND_EVENTS = 'READ_SITES_AND_EVENTS';
 export const ADD_TIMESTAMP_TO_LOGGER = 'ADD_TIMESTAMP_TO_LOGGER';
+export const ADD_TIMESTAMP_TO_LOGGER_REQUESTED = 'ADD_TIMESTAMP_TO_LOGGER_REQUESTED';
+export const ADD_TIMESTAMP_TO_LOGGER_FULFILLED = 'ADD_TIMESTAMP_TO_LOGGER_FULFILLED';
+export const ADD_TIMESTAMP_TO_LOGGER_REJECTED = 'ADD_TIMESTAMP_TO_LOGGER_REJECTED';
 
-function addTimestampToLogger(timestamp, beaconInfo, achievements, count) {
+function addTimestampToLoggerRequestedAction() {
   return {
-    type: ADD_TIMESTAMP_TO_LOGGER,
+    type: ADD_TIMESTAMP_TO_LOGGER_REQUESTED,
+  };
+}
+
+function addTimestampToLoggerRejectedAction() {
+  return {
+    type: ADD_TIMESTAMP_TO_LOGGER_REJECTED,
+  };
+}
+
+function addTimestampToLoggerFulfilledAction(timestamp, beaconInfo, achievements, count) {
+  return {
+    type: ADD_TIMESTAMP_TO_LOGGER_FULFILLED,
     timestamp,
     beaconInfo,
     achievements,
@@ -22,19 +38,41 @@ function addTimestampToLogger(timestamp, beaconInfo, achievements, count) {
 
 export function addToLogger(deviceUniqueId, timestamp, beaconInfo, achievements, count) {
   return (dispatch) => {
-    database
-      .ref(`users/${deviceUniqueId}/logger`)
-      .push({ timestamp, beaconInfo, achievements, count })
-      .then(() => {
-        dispatch(
-          addTimestampToLogger({
-            timestamp,
-            beaconInfo,
-            achievements,
-            count,
-          }),
-        );
-      });
+    dispatch(addTimestampToLoggerRequestedAction());
+    if (beaconInfo) {
+      database
+        .ref(`users/${deviceUniqueId}/logger`)
+        .push({ timestamp, beaconInfo, achievements, count })
+        .then(() => {
+          dispatch(
+            addTimestampToLoggerFulfilledAction({
+              timestamp,
+              beaconInfo,
+              achievements,
+              count,
+            }),
+          );
+        })
+        .catch((error) => {
+          dispatch(addTimestampToLoggerRejectedAction());
+        });
+    } else {
+      database
+        .ref(`users/${deviceUniqueId}/logger`)
+        .push({ timestamp, achievements, count })
+        .then(() => {
+          dispatch(
+            addTimestampToLoggerFulfilledAction({
+              timestamp,
+              achievements,
+              count,
+            }),
+          );
+        })
+        .catch((error) => {
+          dispatch(addTimestampToLoggerRejectedAction());
+        });
+    }
   };
 }
 
@@ -47,25 +85,25 @@ export const readSitesAndEvents = () => ({
   type: READ_SITES_AND_EVENTS,
 });
 
-function getAdminAchievementsRequestedAction() {
+function getAdminRequestedAction() {
   return {
-    type: GET_ADMIN_ACHIEVEMENTS_REQUESTED,
+    type: GET_ADMIN_REQUESTED,
   };
 }
 
-function getAdminAchievementsFulfilledAction(adminAchievements) {
+function getAdminFulfilledAction(admin) {
   return {
-    type: GET_ADMIN_ACHIEVEMENTS_FULFILLED,
-    adminAchievements,
+    type: GET_ADMIN_FULFILLED,
+    admin,
   };
 }
 
-export function getAdminAchievements() {
+export function getAdmin() {
   return (dispatch) => {
-    dispatch(getAdminAchievementsRequestedAction());
-    return database.ref('AdminAchievements').on('value', (snap) => {
-      const adminAchievements = snap.val();
-      dispatch(getAdminAchievementsFulfilledAction(adminAchievements));
+    dispatch(getAdminRequestedAction());
+    database.ref('Admin').on('value', (snap) => {
+      const admin = snap.val();
+      dispatch(getAdminFulfilledAction(admin));
     });
   };
 }
@@ -73,6 +111,12 @@ export function getAdminAchievements() {
 function addToUserRequestedAction() {
   return {
     type: ADD_TO_USER_REQUESTED,
+  };
+}
+
+function addToUserRejectedAction() {
+  return {
+    type: ADD_TO_USER_REJECTED,
   };
 }
 
@@ -106,6 +150,9 @@ export function addToUser(deviceUniqueId, deviceManufacturer, deviceName, device
             deviceVersion,
           }),
         );
+      })
+      .catch((error) => {
+        dispatch(addToUserRejectedAction());
       });
   };
 }

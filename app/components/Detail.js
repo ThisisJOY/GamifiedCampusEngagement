@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import { Tile } from 'react-native-elements';
 import Container from './Container';
 
@@ -27,14 +27,24 @@ const Detail = ({ achievement }) =>
       <Text>Address</Text>
     </Container>
     <Text>
-      {`Gebouw ${achievement.locatieCode ? achievement.locatieCode : ''}, ${achievement.address
-        .straat
+      {`Gebouw ${achievement.locatieCode ? achievement.locatieCode : ''}, ${achievement.address &&
+      achievement.address.straat
         ? achievement.address.straat
-        : ''} ${achievement.address.huisnummer ? achievement.address.huisnummer : ''}, ${achievement
-        .address.postcode
+        : ''} ${achievement.address && achievement.address.huisnummer
+        ? achievement.address.huisnummer
+        : ''}, ${achievement.postcode && achievement.address.postcode
         ? achievement.address.postcode
         : ''} Delft`}
     </Text>
+    {achievement.start
+      ? <View>
+        <Container style={{ backgroundColor: 'lightskyblue' }}>
+          <Text>Time</Text>
+        </Container>
+        <Text>{`Start time: ${achievement.start}`}</Text>
+        <Text>{`End time: ${achievement.end ? achievement.end : ''}`}</Text>
+      </View>
+      : null}
     <Container style={{ backgroundColor: 'lightskyblue' }}>
       <Text>Description</Text>
     </Container>

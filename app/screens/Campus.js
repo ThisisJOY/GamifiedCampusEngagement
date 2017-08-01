@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import Analytics from 'react-native-firebase-analytics';
 import Container from '../components/Container';
 
 const styles = StyleSheet.create({
@@ -26,7 +27,14 @@ class Campus extends Component {
     navigation: PropTypes.object,
   };
 
+  componentWillMount() {
+    Analytics.setScreenName('Campus');
+  }
+
   handlePress = (screen) => {
+    Analytics.logEvent('handle_press_screen', {
+      handle_press_screen: screen,
+    });
     this.props.navigation.navigate(screen, { ...{ screen } });
   };
 
