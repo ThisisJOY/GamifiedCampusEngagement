@@ -8,8 +8,11 @@ class Details extends Component {
     navigation: PropTypes.object,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     Analytics.setScreenName('Details');
+    Analytics.logEvent('tab_navigation_is_clicked', {
+      tab_navigation_is_clicked: 'Details',
+    });
   }
 
   render() {

@@ -26,29 +26,27 @@ function addTimestampToLoggerRejectedAction() {
   };
 }
 
-function addTimestampToLoggerFulfilledAction(timestamp, beaconInfo, achievements, count) {
+function addTimestampToLoggerFulfilledAction(timestamp, beaconInfo, count) {
   return {
     type: ADD_TIMESTAMP_TO_LOGGER_FULFILLED,
     timestamp,
     beaconInfo,
-    achievements,
     count,
   };
 }
 
-export function addToLogger(deviceUniqueId, timestamp, beaconInfo, achievements, count) {
+export function addToLogger(deviceUniqueId, timestamp, beaconInfo, count) {
   return (dispatch) => {
     dispatch(addTimestampToLoggerRequestedAction());
     if (beaconInfo) {
       database
         .ref(`users/${deviceUniqueId}/logger`)
-        .push({ timestamp, beaconInfo, achievements, count })
+        .push({ timestamp, beaconInfo, count })
         .then(() => {
           dispatch(
             addTimestampToLoggerFulfilledAction({
               timestamp,
               beaconInfo,
-              achievements,
               count,
             }),
           );
@@ -59,12 +57,11 @@ export function addToLogger(deviceUniqueId, timestamp, beaconInfo, achievements,
     } else {
       database
         .ref(`users/${deviceUniqueId}/logger`)
-        .push({ timestamp, achievements, count })
+        .push({ timestamp, count })
         .then(() => {
           dispatch(
             addTimestampToLoggerFulfilledAction({
               timestamp,
-              achievements,
               count,
             }),
           );

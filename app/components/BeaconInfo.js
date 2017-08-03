@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import Container from './Container';
 
 const BeaconInfo = ({ beacon }) =>
@@ -25,7 +25,13 @@ const BeaconInfo = ({ beacon }) =>
       Proximity: {beacon.proximity || 'NA'}
     </Text>
     <Text>
-      Distance: {beacon.distance ? beacon.distance.toFixed(2) : 'NA'}m
+      {Platform.OS === 'ios'
+        ? <Text>
+            Distance: {beacon.accuracy ? beacon.accuracy.toFixed(2) : 'NA'}m
+          </Text>
+        : <Text>
+            Distance: {beacon.distance ? beacon.distance.toFixed(2) : 'NA'}m
+          </Text>}
     </Text>
   </View>;
 

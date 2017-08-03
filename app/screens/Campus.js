@@ -27,8 +27,11 @@ class Campus extends Component {
     navigation: PropTypes.object,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     Analytics.setScreenName('Campus');
+    Analytics.logEvent('tab_navigation_is_clicked', {
+      tab_navigation_is_clicked: 'Campus',
+    });
   }
 
   handlePress = (screen) => {

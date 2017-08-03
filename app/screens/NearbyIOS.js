@@ -4,21 +4,68 @@ import {
   Text,
   ListView,
   View,
-  ScrollView,
   DeviceEventEmitter,
-  Platform,
-  Image,
   TouchableOpacity,
-  Button,
+  Image,
+  StatusBar,
 } from 'react-native';
-import { Tile, List, ListItem } from 'react-native-elements';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Modal from 'react-native-modal';
+import { Tile } from 'react-native-elements';
 import Beacons from 'react-native-beacons-manager';
+import DeviceInfo from 'react-native-device-info';
+import moment from 'moment';
+import Analytics from 'react-native-firebase-analytics';
+import BeaconInfo from '../components/BeaconInfo';
+import Logo from '../components/Logo';
 import Container from '../components/Container';
-import { venues } from '../config/data';
+import { unlockAchievementIfBeaconDetected, addToUser, addToLogger } from '../actions/achievements';
 
-const disabled = false;
+const deviceUniqueId = DeviceInfo.getUniqueID();
+const deviceManufacturer = DeviceInfo.getManufacturer();
+const deviceName = DeviceInfo.getSystemName();
+const deviceVersion = DeviceInfo.getSystemVersion();
+
+let item = null;
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#f96062',
+    padding: 12,
+    marginTop: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: -0.5,
+  },
+});
 
 class NearbyIOS extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+    result: PropTypes.object,
+    beacon: PropTypes.object,
+    count: PropTypes.number,
+  };
+
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({
@@ -28,6 +75,8 @@ class NearbyIOS extends Component {
       identifier: 'Apple Inc,.',
       uuid: '01122334-4556-6778-899a-abbccddeeff0',
       dataSource: ds.cloneWithRows([]),
+      isFirstModalVisible: true,
+      isModalVisible: true,
     };
   }
 
@@ -44,104 +93,170 @@ class NearbyIOS extends Component {
   }
 
   componentDidMount() {
+    if (process.environment === 'staging') {
+      Analytics.setEnabled(false);
+    }
+    Analytics.setScreenName('NearMe');
+    Analytics.logEvent('tab_navigation_is_clicked', {
+      tab_navigation_is_clicked: 'NearMe',
+    });
+    Analytics.setUserId(deviceUniqueId);
+    Analytics.setUserProperty('device_manufacturer', deviceManufacturer);
+    Analytics.setUserProperty('device_name', deviceName);
+    Analytics.setUserProperty('device_version', deviceVersion);
+
+    this.props.dispatch(addToUser(deviceUniqueId, deviceManufacturer, deviceName, deviceVersion));
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
       if (data.beacons != null) {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(data.beacons),
         });
+        if (data.beacons[0] != null) {
+          this.props.dispatch(unlockAchievementIfBeaconDetected(data.beacons[0]));
+        }
       }
     });
+
+    this.logInfo = setInterval(
+      () =>
+        this.props.dispatch(
+          addToLogger(deviceUniqueId, moment().format(), this.props.beacon, this.props.count),
+        ),
+      5000,
+    );
   }
 
   componentWillUnMount() {
     this.beaconsDidRange = null;
+    clearInterval(this.logInfo);
+  }
+
+  hideModal = () => {
+    this.setState({ isModalVisible: false });
+  };
+
+  renderBeaconRow(beacon) {
+    item = this.props.result;
+
+    return (
+      <View>
+        {item
+          ? <View>
+            {item.picture && item.picture.length > 0
+                ? <Tile
+                  activeOpacity={1}
+                  imageSrc={{
+                    uri: item.picture,
+                  }}
+                  featured
+                  title={item.name || ''}
+                />
+                : <Tile
+                  activeOpacity={1}
+                  imageSrc={{
+                    uri:
+                        'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
+                  }}
+                  featured
+                  title={item.name || ''}
+                />}
+            <Container style={{ backgroundColor: 'lightskyblue' }}>
+              <Text>Address</Text>
+            </Container>
+            <Text>
+              {`Gebouw ${item.locatieCode ? item.locatieCode : ''}, ${item.address.straat
+                  ? item.address.straat
+                  : ''} ${item.address.huisnummer ? item.address.huisnummer : ''}, ${item.address
+                  .postcode
+                  ? item.address.postcode
+                  : ''} Delft`}
+            </Text>
+            <Container style={{ backgroundColor: 'lightskyblue' }}>
+              <Text>Description</Text>
+            </Container>
+            <Text>
+              {item.info || ''}
+            </Text>
+            <BeaconInfo beacon={beacon} />
+            {
+              <Modal
+                isVisible={this.state.isModalVisible && item.isUnlocked}
+                animationIn={'slideInUp'}
+                animationOut={'slideOutDown'}
+                style={styles.bottomModal}
+              >
+                <View style={styles.modalContent}>
+                  <View style={{ height: 120, margin: 10 }}>
+                    <Image
+                      source={{
+                        uri:
+                            item.image ||
+                            'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
+                      }}
+                      style={{ height: 80, width: 80, margin: 10 }}
+                      resizeMode="contain"
+                    />
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        borderBottomWidth: 1,
+                        borderColor: '#e3e3e3',
+                        padding: 5,
+                      }}
+                    >
+                      <Text style={{ fontSize: 11, color: '#777' }}>
+                        {item.achievementName || ''}
+                      </Text>
+                    </View>
+                  </View>
+                  <Text style={styles.text}>
+                    {item.feedback || ''}
+                  </Text>
+                  <TouchableOpacity onPress={this.hideModal}>
+                    <View style={styles.button}>
+                      <Text>Dismiss</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+              }
+          </View>
+          : <Text>Retrieving information...</Text>}
+      </View>
+    );
   }
 
   render() {
     const { dataSource } = this.state;
 
+    if (dataSource.getRowCount() === 0) {
+      return (
+        <Container>
+          <StatusBar translucent={false} />
+          <Logo />
+        </Container>
+      );
+    }
+
     return (
-      <Container>
-        <Text style={styles.headline}>
-          Find nearest beacons to get information about a location
-        </Text>
+      <View>
+        <StatusBar translucent={false} />
         <ListView
           dataSource={dataSource}
           enableEmptySections
-          renderRow={beacon => this._renderBeaconRow(beacon)}
+          renderRow={beacon => this.renderBeaconRow(beacon)}
         />
-      </Container>
+      </View>
     );
   }
-
-  _renderBeaconRow(beacon) {
-    const key = beacon.major;
-    let venue;
-    venues.forEach((item) => {
-      if (item.major === key) {
-        return (venue = item);
-      }
-    });
-
-    return (
-      <Container>
-        <Tile
-          imageSrc={{ uri: venue.picture }}
-          featured
-          title={venue.name}
-          caption={venue.address}
-        />
-
-        <Button
-          title="Unlock Achievement"
-          buttonStyle={{ marginTop: 20 }}
-          disabled={disabled}
-          onPress={!disabled && this._handleCheckinPress}
-        />
-
-        <Container style={{ backgroundColor: 'lightskyblue' }}>
-          <Text> Beacon </Text>
-        </Container>
-
-        <Text>
-          {' '}UUID: {beacon.uuid ? beacon.uuid : 'NA'}{' '}
-        </Text>
-        <Text>
-          {' '}Major: {beacon.major ? beacon.major : 'NA'}{' '}
-        </Text>
-        <Text>
-          {' '}Minor: {beacon.minor ? beacon.minor : 'NA'}{' '}
-        </Text>
-        <Text>
-          {' '}RSSI: {beacon.rssi ? beacon.rssi : 'NA'}{' '}
-        </Text>
-        <Text>
-          {' '}Proximity: {beacon.proximity ? beacon.proximity : 'NA'}{' '}
-        </Text>
-        <Text>
-          {' '}Distance: {beacon.accuracy ? beacon.accuracy.toFixed(2) : 'NA'}m{' '}
-        </Text>
-
-        <Container style={{ backgroundColor: 'lightskyblue' }}>
-          <Text> Info </Text>
-        </Container>
-
-        <Text>
-          {' '}{venue.info}{' '}
-        </Text>
-      </Container>
-    );
-  }
-
-  _handleCheckinPress = () => {
-    this.props.navigation.navigate('Feedback');
-  };
 }
 
-const styles = StyleSheet.create({
-  headline: {
-    fontSize: 20,
-  },
+const mapStateToProps = state => ({
+  achievements: state.achievements.achievements,
+  count: state.achievements.count,
+  result: state.achievements.result,
+  beacon: state.achievements.beacon,
 });
 
-module.exports = NearbyIOS;
+export default connect(mapStateToProps)(NearbyIOS);

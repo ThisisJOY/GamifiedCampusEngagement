@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -35,6 +36,7 @@
 		6B6A0E7727E4449892357ADA /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C63E4E9BFAB4CA5B8E2E991 /* Roboto.ttf */; };
 		6FF18D2336EE41C5B7B2593A /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1AA872EA7DA49508F3D5D37 /* rubicon-icon-font.ttf */; };
 		788257078B1B4BD49F96FB9D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 857BA67BBD3245C1B52DAD4D /* Zocial.ttf */; };
+		79E30BD01A2653C0C8C74542 /* libPods-gamifiedCampusEngagement.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1B46C5BE67FBF3DBD868B5 /* libPods-gamifiedCampusEngagement.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		7BC03587FBC2438F869FC4BC /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0622A8CCBC1640558DD8AE04 /* libRNDeviceInfo.a */; };
 		7E37009E6159455DA4AA4398 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB49FEED1334ECAA68041CE /* FontAwesome.ttf */; };
 		8018547FD3B144CE9DBE700B /* libRNiBeacon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F55FBAC772B742A9A78DE016 /* libRNiBeacon.a */; };
@@ -46,6 +48,7 @@
 		ADE622F146D846E9B84EAAC5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B88AD9B2B7A4E2CBACC517D /* Ionicons.ttf */; };
 		C5C445E545C345ABBD6B479A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECC0F22C3DA147189076CE87 /* Foundation.ttf */; };
 		D0706504E80B4D078A9FE283 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 702FD54A59314AB4BB35671A /* EvilIcons.ttf */; };
+		D7D30CC81F333356005EBB1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D7D30CC71F333356005EBB1D /* GoogleService-Info.plist */; };
 		DC3285E66F85444F8E86F021 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C572DD21C04243489DA7A5BD /* SimpleLineIcons.ttf */; };
 		DD8DCF3FC8514F678C4BA239 /* libRNFIRAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7584D83EA6F541F284ABBD9F /* libRNFIRAnalytics.a */; };
 		DFEA0DB935374175B58372E5 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 523181621070414BB49F5802 /* Entypo.ttf */; };
@@ -314,6 +317,7 @@
 		00E356F21AD99517003FC87E /* gamifiedCampusEngagementTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = gamifiedCampusEngagementTests.m; sourceTree = "<group>"; };
 		01F2A1ADA2204F4BA60DC7DB /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		0622A8CCBC1640558DD8AE04 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		0F233D5E4AE38389A1E5F937 /* Pods-gamifiedCampusEngagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamifiedCampusEngagement.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gamifiedCampusEngagement/Pods-gamifiedCampusEngagement.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* gamifiedCampusEngagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamifiedCampusEngagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,11 +357,15 @@
 		A8DD0EFA45C84F8B8FE91891 /* libRNBackgroundTimer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBackgroundTimer.a; sourceTree = "<group>"; };
 		B1AA872EA7DA49508F3D5D37 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		B63B1CAAF89C4C199D1CAEE1 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		C06D96D1A0006DC55DA528A8 /* libPods-gamifiedCampusEngagementTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gamifiedCampusEngagementTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4D2DAC44D05473082BEFB4F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		C572DD21C04243489DA7A5BD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		D7BCB6C10CBE429DB588668D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		D7D30CC71F333356005EBB1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E69AD0812DFB4F7C9B28131B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		ECC0F22C3DA147189076CE87 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		ED4DB4200137920DC9613865 /* Pods-gamifiedCampusEngagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamifiedCampusEngagement.release.xcconfig"; path = "Pods/Target Support Files/Pods-gamifiedCampusEngagement/Pods-gamifiedCampusEngagement.release.xcconfig"; sourceTree = "<group>"; };
+		EF1B46C5BE67FBF3DBD868B5 /* libPods-gamifiedCampusEngagement.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gamifiedCampusEngagement.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F041369AE9044BF3B72EC9E2 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F55FBAC772B742A9A78DE016 /* libRNiBeacon.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNiBeacon.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -392,6 +400,7 @@
 				7BC03587FBC2438F869FC4BC /* libRNDeviceInfo.a in Frameworks */,
 				EBB53A424A514383B6BC055A /* libRNBackgroundTimer.a in Frameworks */,
 				DD8DCF3FC8514F678C4BA239 /* libRNFIRAnalytics.a in Frameworks */,
+				79E30BD01A2653C0C8C74542 /* libPods-gamifiedCampusEngagement.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +466,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		05874C842903B4B19375F41B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EF1B46C5BE67FBF3DBD868B5 /* libPods-gamifiedCampusEngagement.a */,
+				C06D96D1A0006DC55DA528A8 /* libPods-gamifiedCampusEngagementTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +496,7 @@
 		13B07FAE1A68108700A75B9A /* gamifiedCampusEngagement */ = {
 			isa = PBXGroup;
 			children = (
+				D7D30CC71F333356005EBB1D /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -504,6 +523,15 @@
 				D7CC72D31F268B8A000DB0D7 /* libdouble-conversion.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		279A291EF52AADD1BFA7634B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0F233D5E4AE38389A1E5F937 /* Pods-gamifiedCampusEngagement.debug.xcconfig */,
+				ED4DB4200137920DC9613865 /* Pods-gamifiedCampusEngagement.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5CB9A4DC95034E76BEA8605E /* Resources */ = {
@@ -595,6 +623,8 @@
 				00E356EF1AD99517003FC87E /* gamifiedCampusEngagementTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				5CB9A4DC95034E76BEA8605E /* Resources */,
+				279A291EF52AADD1BFA7634B /* Pods */,
+				05874C842903B4B19375F41B /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -683,10 +713,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "gamifiedCampusEngagement" */;
 			buildPhases = (
+				FCA3666D43B2CA7962D51F7D /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				6DF2F9ECFAC1D9B858894E2C /* [CP] Embed Pods Frameworks */,
+				F9816FB847494EE32FF3FF1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -703,7 +736,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1076,6 +1109,7 @@
 				2A274150EC0342D09ACBA9A1 /* SimpleLineIcons.ttf in Resources */,
 				788257078B1B4BD49F96FB9D /* Zocial.ttf in Resources */,
 				DFEA0DB935374175B58372E5 /* Entypo.ttf in Resources */,
+				D7D30CC81F333356005EBB1D /* GoogleService-Info.plist in Resources */,
 				0BEE7BAC592C4EEF840DBB0F /* EvilIcons.ttf in Resources */,
 				7E37009E6159455DA4AA4398 /* FontAwesome.ttf in Resources */,
 				C5C445E545C345ABBD6B479A /* Foundation.ttf in Resources */,
@@ -1107,6 +1141,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		6DF2F9ECFAC1D9B858894E2C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-gamifiedCampusEngagement/Pods-gamifiedCampusEngagement-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9816FB847494EE32FF3FF1B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-gamifiedCampusEngagement/Pods-gamifiedCampusEngagement-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCA3666D43B2CA7962D51F7D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1185,6 +1264,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gamifiedCampusEngagement.app/gamifiedCampusEngagement";
 			};
@@ -1221,6 +1301,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gamifiedCampusEngagement.app/gamifiedCampusEngagement";
 			};
@@ -1228,6 +1309,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F233D5E4AE38389A1E5F937 /* Pods-gamifiedCampusEngagement.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1249,7 +1331,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gamifiedCampusEngagement.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gamifiedcampusengagement;
 				PRODUCT_NAME = gamifiedCampusEngagement;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1257,6 +1339,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED4DB4200137920DC9613865 /* Pods-gamifiedCampusEngagement.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1277,7 +1360,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gamifiedCampusEngagement.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gamifiedcampusengagement;
 				PRODUCT_NAME = gamifiedCampusEngagement;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1296,15 +1379,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1337,8 +1424,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1346,6 +1435,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

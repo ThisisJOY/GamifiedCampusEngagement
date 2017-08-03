@@ -62,7 +62,6 @@ class NearbyAndroid extends Component {
     dispatch: PropTypes.func,
     result: PropTypes.object,
     beacon: PropTypes.object,
-    achievements: PropTypes.array,
     count: PropTypes.number,
   };
 
@@ -80,15 +79,6 @@ class NearbyAndroid extends Component {
   }
 
   componentWillMount() {
-    if (process.environment === 'staging') {
-      Analytics.setEnabled(false);
-    }
-    Analytics.setScreenName('Near Me');
-    Analytics.setUserId(deviceUniqueId);
-    Analytics.setUserProperty('device_manufacturer', deviceManufacturer);
-    Analytics.setUserProperty('device_name', deviceName);
-    Analytics.setUserProperty('device_version', deviceVersion);
-
     Beacons.detectIBeacons();
 
     const uuid = this.state.uuidRef;
@@ -98,6 +88,19 @@ class NearbyAndroid extends Component {
   }
 
   componentDidMount() {
+    if (process.environment === 'staging') {
+      Analytics.setEnabled(false);
+    }
+    Analytics.setScreenName('NearMe');
+    Analytics.logEvent('tab_navigation_is_clicked', {
+      tab_navigation_is_clicked: 'NearMe',
+    });
+    Analytics.setUserId(deviceUniqueId);
+    Analytics.setUserProperty('user_id', deviceUniqueId);
+    Analytics.setUserProperty('device_manufacturer', deviceManufacturer);
+    Analytics.setUserProperty('device_name', deviceName);
+    Analytics.setUserProperty('device_version', deviceVersion);
+
     this.props.dispatch(addToUser(deviceUniqueId, deviceManufacturer, deviceName, deviceVersion));
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
       if (data.beacons != null) {
@@ -110,48 +113,23 @@ class NearbyAndroid extends Component {
       }
     });
 
-    setInterval(
+    this.logInfo = setInterval(
       () =>
-        Analytics.logEvent('beacon_detected', {
-          // beacon_uuid: this.props.beacon.uuid,
-          // beacon_major: this.props.beacon.major,
-          // beacon_minor: this.props.beacon.minor,
-          // beacon_rssi: this.props.beacon.rssi,
-          // beacon_proximity: this.props.beacon.proximity,
-          // beacon_distance: this.props.beacon.distance,
-          // achievements_status: this.props.achievements,
-          // count_unlocked_achievements: this.props.count,
-          beacon_uuid: this.props.beacon.uuid,
-        }),
+        this.props.dispatch(
+          addToLogger(deviceUniqueId, moment().format(), this.props.beacon, this.props.count),
+        ),
       5000,
     );
-
-    // this.logInfo = setInterval(
-    //   () =>
-    //     this.props.dispatch(
-    //       addToLogger(
-    //         deviceUniqueId,
-    //         moment().format(),
-    //         this.props.beacon,
-    //         this.props.achievements,
-    //         this.props.count,
-    //       ),
-    //     ),
-    //   5000,
-    // );
   }
 
   componentWillUnMount() {
     this.beaconsDidRange = null;
-    // clearInterval(this.logInfo);
+    clearInterval(this.logInfo);
   }
 
   hideModal = () => {
     this.setState({ isModalVisible: false });
   };
-  // hideFirstModal = () => {
-  //   this.setState({ isFirstModalVisible: false });
-  // };
 
   renderBeaconRow(beacon) {
     item = this.props.result;
@@ -276,43 +254,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(NearbyAndroid);
-
-// <Modal
-//   isVisible={this.state.isFirstModalVisible}
-//   animationIn={'slideInUp'}
-//   animationOut={'slideOutDown'}
-//   style={styles.bottomModal}
-// >
-//   <View style={styles.modalContent}>
-//     <View style={{ height: 120, margin: 10 }}>
-//       <Image
-//         source={{
-//           uri:
-//             'https://s-media-cache-ak0.pinimg.com/originals/0a/9c/8a/0a9c8a649b9ba8aa62c7fcaa86414019.png',
-//         }}
-//         style={{ height: 80, width: 80, margin: 10 }}
-//         resizeMode="contain"
-//       />
-//       <View
-//         style={{
-//           flexDirection: 'row',
-//           justifyContent: 'space-around',
-//           borderBottomWidth: 1,
-//           borderColor: '#e3e3e3',
-//           padding: 5,
-//         }}
-//       >
-//         <Text style={{ fontSize: 11, color: '#777' }}>Newbie</Text>
-//       </View>
-//     </View>
-//     <Text style={styles.text}>
-//       Enjoy this sticker because you have lauched our awesome App! View your collection of
-//       stickers under the Achievements Tab. Explore the campus to collect them all!
-//     </Text>
-//     <TouchableOpacity onPress={this.hideFirstModal}>
-//       <View style={styles.button}>
-//         <Text>Dismiss</Text>
-//       </View>
-//     </TouchableOpacity>
-//   </View>
-// </Modal>

@@ -14,11 +14,11 @@ class Feed extends Component {
     events: PropTypes.array,
   };
 
-  componentWillMount() {
-    Analytics.setScreenName('Feed');
-  }
-
   componentDidMount() {
+    Analytics.setScreenName('Feed');
+    Analytics.logEvent('tab_navigation_is_clicked', {
+      tab_navigation_is_clicked: 'Feed',
+    });
     this.props.dispatch(readSitesAndEvents());
   }
 
@@ -40,7 +40,7 @@ class Feed extends Component {
           {dataSource
             ? dataSource.map(item =>
               <ListItem
-                key={item.name}
+                key={`${item.major}${item.minor}`}
                 roundAvatar
                 avatar={{ uri: item.picture }}
                 title={item.name}
