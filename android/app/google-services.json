@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "878998964972",
+    "firebase_url": "https://gamifiedcampusengagement-f6ff7.firebaseio.com",
+    "project_id": "gamifiedcampusengagement-f6ff7",
+    "storage_bucket": "gamifiedcampusengagement-f6ff7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878998964972:android:ada2e3b67d3519be",
+        "android_client_info": {
+          "package_name": "com.gamifiedcampusengagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878998964972-7d70pv8mpce82ahg89o2bn7oam79mn5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbYmUJLf75XJLbMGlkeZtUrWJl0TsLDGA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

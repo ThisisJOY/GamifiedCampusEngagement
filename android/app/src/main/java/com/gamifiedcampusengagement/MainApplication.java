@@ -2,7 +2,9 @@ package com.gamifiedcampusengagement;
 
 import android.app.Application;
 
+import com.evollu.react.fa.FIRAnalyticsPackage;
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.mackentoch.beaconsandroid.BeaconsAndroidPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -22,10 +24,8 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new BeaconsAndroidPackage()
-      );
+      return Arrays.<ReactPackage>asList(new MainReactPackage(), new RNDeviceInfo(), new BeaconsAndroidPackage(),
+          new FIRAnalyticsPackage());
     }
   };
 
