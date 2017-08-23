@@ -6,6 +6,16 @@ import { connect } from 'react-redux';
 import Analytics from 'react-native-firebase-analytics';
 import { readSitesAndEvents } from '../actions/achievements';
 
+const io = require('./images/io.jpg');
+const me = require('./images/3me.jpg');
+const ewi = require('./images/ewi.jpg');
+const aula = require('./images/aula.jpg');
+const library = require('./images/library.jpg');
+const civil = require('./images/civil.jpg');
+const appliedsciences = require('./images/appliedsciences.jpg');
+const cio = require('./images/cio.jpg');
+const noimage = require('./images/noimage.jpg');
+
 class Feed extends Component {
   static propTypes = {
     navigation: PropTypes.object,
@@ -16,18 +26,53 @@ class Feed extends Component {
 
   componentDidMount() {
     Analytics.setScreenName('Feed');
-    Analytics.logEvent('tab_navigation_is_clicked', {
-      tab_navigation_is_clicked: 'Feed',
+    Analytics.logEvent('visiting_feed_screen', {
+      visiting_feed_screen: 'Feed',
     });
     this.props.dispatch(readSitesAndEvents());
   }
 
   onLearnMore = (item) => {
-    Analytics.logEvent('navigate_to_learn_more', {
-      navigate_to_learn_more: item.name || 'NA',
+    Analytics.logEvent('visiting_details_screen', {
+      visiting_details_screen: item.name || 'NA',
     });
     this.props.navigation.navigate('Details', { ...item });
   };
+
+  choosePicture(item) {
+    let pictureSource = noimage;
+    if (item.picture && item.picture.length > 0) {
+      switch (item.picture) {
+        case 'io':
+          pictureSource = io;
+          break;
+        case 'me':
+          pictureSource = me;
+          break;
+        case 'ewi':
+          pictureSource = ewi;
+          break;
+        case 'aula':
+          pictureSource = aula;
+          break;
+        case 'library':
+          pictureSource = library;
+          break;
+        case 'civil':
+          pictureSource = civil;
+          break;
+        case 'appliedsciences':
+          pictureSource = appliedsciences;
+          break;
+        case 'cio':
+          pictureSource = cio;
+          break;
+        default:
+          pictureSource = noimage;
+      }
+    }
+    return pictureSource;
+  }
 
   render() {
     const { screen } = this.props.navigation.state.params;
@@ -42,7 +87,7 @@ class Feed extends Component {
               <ListItem
                 key={`${item.major}${item.minor}`}
                 roundAvatar
-                avatar={{ uri: item.picture }}
+                avatar={this.choosePicture(item)}
                 title={item.name}
                 onPress={() => this.onLearnMore(item)}
               />,

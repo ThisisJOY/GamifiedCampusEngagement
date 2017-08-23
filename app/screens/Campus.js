@@ -29,14 +29,14 @@ class Campus extends Component {
 
   componentDidMount() {
     Analytics.setScreenName('Campus');
-    Analytics.logEvent('tab_navigation_is_clicked', {
-      tab_navigation_is_clicked: 'Campus',
+    Analytics.logEvent('visiting_campus_screen', {
+      visiting_campus_screen: 'Campus',
     });
   }
 
   handlePress = (screen) => {
-    Analytics.logEvent('handle_press_screen', {
-      handle_press_screen: screen,
+    Analytics.logEvent('visiting_feed_screen', {
+      visiting_feed_screen: screen,
     });
     this.props.navigation.navigate(screen, { ...{ screen } });
   };

@@ -35,8 +35,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This is required for ranging.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow the appliation to track your location.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

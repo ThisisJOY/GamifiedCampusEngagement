@@ -22,6 +22,29 @@ import Logo from '../components/Logo';
 import Container from '../components/Container';
 import { unlockAchievementIfBeaconDetected, addToUser, addToLogger } from '../actions/achievements';
 
+const sticker1 = require('./images/sticker1.png');
+const sticker2 = require('./images/sticker2.png');
+const sticker3 = require('./images/sticker3.png');
+const sticker4 = require('./images/sticker4.png');
+const sticker5 = require('./images/sticker5.png');
+const sticker6 = require('./images/sticker6.png');
+const sticker7 = require('./images/sticker7.png');
+const sticker8 = require('./images/sticker8.png');
+const sticker9 = require('./images/sticker9.png');
+const sticker10 = require('./images/sticker10.png');
+const sticker11 = require('./images/sticker11.png');
+const sticker12 = require('./images/sticker12.png');
+const sticker13 = require('./images/sticker13.png');
+const io = require('./images/io.jpg');
+const me = require('./images/3me.jpg');
+const ewi = require('./images/ewi.jpg');
+const aula = require('./images/aula.jpg');
+const library = require('./images/library.jpg');
+const civil = require('./images/civil.jpg');
+const appliedsciences = require('./images/appliedsciences.jpg');
+const cio = require('./images/cio.jpg');
+const noimage = require('./images/noimage.jpg');
+
 const deviceUniqueId = DeviceInfo.getUniqueID();
 const deviceManufacturer = DeviceInfo.getManufacturer();
 const deviceName = DeviceInfo.getSystemName();
@@ -72,8 +95,8 @@ class NearbyIOS extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2,
     });
     this.state = {
-      identifier: 'Apple Inc,.',
-      uuid: '01122334-4556-6778-899a-abbccddeeff0',
+      identifier: 'Apple, Inc.',
+      uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
       dataSource: ds.cloneWithRows([]),
       isFirstModalVisible: true,
       isModalVisible: true,
@@ -81,13 +104,15 @@ class NearbyIOS extends Component {
   }
 
   componentWillMount() {
-    Beacons.requestWhenInUseAuthorization();
+    // Beacons.requestWhenInUseAuthorization();
+    Beacons.requestAlwaysAuthorization();
 
     const region = {
       identifier: this.state.identifier,
       uuid: this.state.uuid,
     };
 
+    Beacons.startMonitoringForRegion(region);
     Beacons.startRangingBeaconsInRegion(region);
     Beacons.startUpdatingLocation();
   }
@@ -97,8 +122,8 @@ class NearbyIOS extends Component {
       Analytics.setEnabled(false);
     }
     Analytics.setScreenName('NearMe');
-    Analytics.logEvent('tab_navigation_is_clicked', {
-      tab_navigation_is_clicked: 'NearMe',
+    Analytics.logEvent('visiting_nearme_screen', {
+      visiting_nearme_screen: 'NearMe',
     });
     Analytics.setUserId(deviceUniqueId);
     Analytics.setUserProperty('device_manufacturer', deviceManufacturer);
@@ -106,6 +131,7 @@ class NearbyIOS extends Component {
     Analytics.setUserProperty('device_version', deviceVersion);
 
     this.props.dispatch(addToUser(deviceUniqueId, deviceManufacturer, deviceName, deviceVersion));
+
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
       if (data.beacons != null) {
         this.setState({
@@ -117,12 +143,13 @@ class NearbyIOS extends Component {
       }
     });
 
+    // log usage data every 10 seconds
     this.logInfo = setInterval(
       () =>
         this.props.dispatch(
           addToLogger(deviceUniqueId, moment().format(), this.props.beacon, this.props.count),
         ),
-      5000,
+      10000,
     );
   }
 
@@ -137,7 +164,83 @@ class NearbyIOS extends Component {
 
   renderBeaconRow(beacon) {
     item = this.props.result;
-
+    let pictureSource = noimage;
+    let imageSource = noimage;
+    if (item && item.picture && item.picture.length > 0) {
+      switch (item.picture) {
+        case 'io':
+          pictureSource = io;
+          break;
+        case 'me':
+          pictureSource = me;
+          break;
+        case 'ewi':
+          pictureSource = ewi;
+          break;
+        case 'aula':
+          pictureSource = aula;
+          break;
+        case 'library':
+          pictureSource = library;
+          break;
+        case 'civil':
+          pictureSource = civil;
+          break;
+        case 'appliedsciences':
+          pictureSource = appliedsciences;
+          break;
+        case 'cio':
+          pictureSource = cio;
+          break;
+        default:
+          pictureSource = noimage;
+      }
+      if (item && item.image && item.image.length > 0) {
+        switch (item.image) {
+          case 'sticker1':
+            imageSource = sticker1;
+            break;
+          case 'sticker2':
+            imageSource = sticker2;
+            break;
+          case 'sticker3':
+            imageSource = sticker3;
+            break;
+          case 'sticker4':
+            imageSource = sticker4;
+            break;
+          case 'sticker5':
+            imageSource = sticker5;
+            break;
+          case 'sticker6':
+            imageSource = sticker6;
+            break;
+          case 'sticker7':
+            imageSource = sticker7;
+            break;
+          case 'sticker8':
+            imageSource = sticker8;
+            break;
+          case 'sticker9':
+            imageSource = sticker9;
+            break;
+          case 'sticker10':
+            imageSource = sticker10;
+            break;
+          case 'sticker11':
+            imageSource = sticker11;
+            break;
+          case 'sticker12':
+            imageSource = sticker12;
+            break;
+          case 'sticker13':
+            imageSource = sticker13;
+            break;
+          default:
+            imageSource = noimage;
+        }
+      }
+    }
     return (
       <View>
         {item
@@ -145,21 +248,11 @@ class NearbyIOS extends Component {
             {item.picture && item.picture.length > 0
                 ? <Tile
                   activeOpacity={1}
-                  imageSrc={{
-                    uri: item.picture,
-                  }}
+                  imageSrc={pictureSource}
                   featured
                   title={item.name || ''}
                 />
-                : <Tile
-                  activeOpacity={1}
-                  imageSrc={{
-                    uri:
-                        'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
-                  }}
-                  featured
-                  title={item.name || ''}
-                />}
+                : <Tile activeOpacity={1} imageSrc={noimage} featured title={item.name || ''} />}
             <Container style={{ backgroundColor: 'lightskyblue' }}>
               <Text>Address</Text>
             </Container>
@@ -188,11 +281,7 @@ class NearbyIOS extends Component {
                 <View style={styles.modalContent}>
                   <View style={{ height: 120, margin: 10 }}>
                     <Image
-                      source={{
-                        uri:
-                            item.image ||
-                            'http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Badges-and-Labels-PNG/Golden_Badge_Template_PNG_Clipart_Image.png?m=1440754268',
-                      }}
+                      source={imageSource || noimage}
                       style={{ height: 80, width: 80, margin: 10 }}
                       resizeMode="contain"
                     />
