@@ -85,11 +85,11 @@ class Achievements extends Component {
       {
         type: 'site',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 14146,
-        minor: 58303,
+        major: 3697,
+        minor: 44083,
         achievementName: 'Mr. Designer',
         isUnlocked: false,
-        image: 'sticker1',
+        image: 'sticker11',
         instruction: 'Visit Industrial Design Engineering to unlock this sticker!',
         feedback:
           'Congratulations! You are now a Mr. Designer! Do not wait! Continue to collect them all!',
@@ -109,11 +109,11 @@ class Achievements extends Component {
       {
         type: 'site',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 64225,
-        minor: 33098,
+        major: 47359,
+        minor: 47605,
         achievementName: '1UP',
         isUnlocked: false,
-        image: 'sticker2',
+        image: 'sticker12',
         instruction:
           'Visit Mechanical, Maritime and Materials Engineering (3mE) to unlock this sticker!',
         feedback: 'Congratulations! You are now a 1UP! Do not wait! Continue to collect them all!',
@@ -132,11 +132,11 @@ class Achievements extends Component {
       {
         type: 'site',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 30735,
-        minor: 22413,
+        major: 39084,
+        minor: 19295,
         achievementName: 'Explorer',
         isUnlocked: false,
-        image: 'sticker3',
+        image: 'sticker13',
         instruction:
           'Visit Electronic Engineering, Mathematics and Computer Sciences (EWI) to unlock this sticker!',
         feedback:
@@ -334,11 +334,11 @@ class Achievements extends Component {
       {
         type: 'hidden',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 3697,
-        minor: 44083,
+        major: 44522,
+        minor: 58303,
         achievementName: 'Walk around at library',
         isUnlocked: false,
-        image: 'sticker11',
+        image: 'sticker1',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
@@ -357,11 +357,11 @@ class Achievements extends Component {
       {
         type: 'hidden',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 47359,
-        minor: 47605,
+        major: 64225,
+        minor: 33098,
         achievementName: 'Walk around at EWI',
         isUnlocked: false,
-        image: 'sticker12',
+        image: 'sticker2',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
@@ -380,11 +380,11 @@ class Achievements extends Component {
       {
         type: 'hidden',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 39084,
-        minor: 19295,
+        major: 30735,
+        minor: 22413,
         achievementName: 'Walk around at IO',
         isUnlocked: false,
-        image: 'sticker13',
+        image: 'sticker3',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
