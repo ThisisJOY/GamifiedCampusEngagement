@@ -94,7 +94,7 @@ class NearbyAndroid extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2,
     });
     this.state = {
-      uuidRef: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+      uuidRef: 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAA',
       dataSource: ds.cloneWithRows([]),
       isModalVisible: true,
     };

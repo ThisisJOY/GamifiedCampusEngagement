@@ -1,10 +1,10 @@
 import React from 'react';
-import { Platform } from 'react-native';
+// import { Platform } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import NearbyAndroid from '../screens/NearbyAndroid';
-import NearbyIOS from '../screens/NearbyIOS';
+// import NearbyIOS from '../screens/NearbyIOS';
 import Achievements from '../screens/Achievements';
 import Campus from '../screens/Campus';
 import Details from '../screens/Details';
@@ -13,7 +13,8 @@ import Feed from '../screens/Feed';
 export const Tabs = TabNavigator(
   {
     Nearby: {
-      screen: Platform.OS === 'ios' ? NearbyIOS : NearbyAndroid,
+      // screen: Platform.OS === 'ios' ? NearbyIOS : NearbyAndroid,
+      screen: NearbyAndroid,
       navigationOptions: {
         tabBarLabel: 'Near Me',
         tabBarIcon: ({ tintColor }) => <Icon name="gps-fixed" size={12} color={tintColor} />,
