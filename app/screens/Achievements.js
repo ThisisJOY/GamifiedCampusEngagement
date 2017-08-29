@@ -109,8 +109,8 @@ class Achievements extends Component {
       {
         type: 'site',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 47359,
-        minor: 47605,
+        major: 39084,
+        minor: 19295,
         achievementName: '1UP',
         isUnlocked: false,
         image: 'sticker12',
@@ -132,8 +132,8 @@ class Achievements extends Component {
       {
         type: 'site',
         uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 39084,
-        minor: 19295,
+        major: 47359,
+        minor: 47605,
         achievementName: 'Explorer',
         isUnlocked: false,
         image: 'sticker13',

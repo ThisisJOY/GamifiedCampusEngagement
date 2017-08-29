@@ -125,6 +125,7 @@ class NearbyAndroid extends Component {
 
     this.props.dispatch(addToUser(deviceUniqueId, deviceManufacturer, deviceName, deviceVersion));
     this.beaconsDidRange = DeviceEventEmitter.addListener('beaconsDidRange', (data) => {
+      console.log(data.beacons);
       if (data.beacons != null) {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(data.beacons),
