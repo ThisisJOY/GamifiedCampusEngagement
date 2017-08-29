@@ -206,7 +206,7 @@ class Achievements extends Component {
 
       {
         type: 'site',
-        uuid: 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAA',
+        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
         major: 10,
         minor: 24956,
         achievementName: 'Fried Check-in',
