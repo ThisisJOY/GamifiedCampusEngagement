@@ -82,14 +82,15 @@ class Achievements extends Component {
 
   writeDB() {
     database.ref('Admin').set([
+      // est
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
         major: 3697,
         minor: 44083,
         achievementName: 'Mr. Designer',
         isUnlocked: false,
-        image: 'sticker11',
+        image: 'sticker1',
         instruction: 'Visit Industrial Design Engineering to unlock this sticker!',
         feedback:
           'Congratulations! You are now a Mr. Designer! Do not wait! Continue to collect them all!',
@@ -106,14 +107,15 @@ class Achievements extends Component {
         info:
           'The first academic education programmes for industrial designers were at the TU Delft Faculty of Architecture. This faculty trained not only architects, but also designers of furniture and everyday utensils. The first students of the ‘Technical and Industrial Design’ programme started their education with a foundation course in Architecture. In 1969, an independent programme in Technical Industrial Design was established with its own engineering degree. In addition to design, technical subjects played a major role. Ergonomics were also incorporated immediately and furthermore, market research was carried out. Finally, the management side was included in the programme. In 1981, the engineering degree and the interim department was renamed Industrial Design. When the Technical Polytechnic became the Delft University of Technology in 1986, Industrial Design finally became the Faculty of Industrial Design.',
       },
+      // est
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
         major: 39084,
         minor: 19295,
         achievementName: '1UP',
         isUnlocked: false,
-        image: 'sticker12',
+        image: 'sticker2',
         instruction:
           'Visit Mechanical, Maritime and Materials Engineering (3mE) to unlock this sticker!',
         feedback: 'Congratulations! You are now a 1UP! Do not wait! Continue to collect them all!',
@@ -125,18 +127,20 @@ class Achievements extends Component {
         },
         gpscoordinaten: { '@lon': '52.000973', '@lat': '4.37196' },
         name: 'Mechanical, Maritime and Materials Engineering',
+        locatieCode: '34',
         picture: 'me',
         info:
           'Welcome at 3mE, one of the eight faculties of the TU Delft. The faculty of 3mE trains socially engaged, responsible engineers. The faculty offers three bachelor courses: Mechanical Engineering, Marine Technology, Clinical Technology. And you can choose from seven challenging master courses.',
       },
+      // est
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
         major: 47359,
         minor: 47605,
         achievementName: 'Explorer',
         isUnlocked: false,
-        image: 'sticker13',
+        image: 'sticker3',
         instruction:
           'Visit Electronic Engineering, Mathematics and Computer Sciences (EWI) to unlock this sticker!',
         feedback:
@@ -154,11 +158,12 @@ class Achievements extends Component {
         info:
           'The EWI building is a building on the Mekelweg in Delft on the TU Delft campus . With a height of 90 meters, the building is the highest of Delft after the New Church . The Faculty of Electrical Engineering, Mathematics and Computer Science is housed here. The building is colored red / blue. A large clock has been confirmed on both the northern and southern façades, one of which is seen from the Delft station .',
       },
+      // tud from here on
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 13237,
-        minor: 16895,
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 112,
+        minor: 52,
         achievementName: 'Adventurer',
         isUnlocked: false,
         image: 'sticker4',
@@ -178,12 +183,11 @@ class Achievements extends Component {
         info:
           'Civil engineering is concerned with the development, design, construction, production and management of the physical infrastructure required to safeguard the safety, health, business activity and sustainability of our society. These facilities are built to provide services such as water management, soil management, urban development, flood protection, drinking water production, waste treatment, transport by water, rail and road, and to perform other functions for the public (such as utilities and offices). The programme at TU Delft is the oldest Civil Engineering course in the Netherlands. The course has traditionally emphasised the interaction between theory and practice and between research and education. Students and researchers therefore enjoy excellent and extensive laboratory, ICT and library facilities.',
       },
-
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 44521,
-        minor: 60091,
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 122,
+        minor: 42,
         achievementName: 'Scientist',
         isUnlocked: false,
         image: 'sticker5',
@@ -203,15 +207,86 @@ class Achievements extends Component {
         info:
           'The Faculty of Applied Sciences is the largest faculty of TU Delft and focuses on finding innovative solutions to social problems. In addition, developing fundamental knowledge for technical developments that can be applied widely in society .',
       },
-
       {
         type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 10,
-        minor: 24956,
-        achievementName: 'Fried Check-in',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 142,
+        minor: 22,
+        achievementName: 'Manager',
         isUnlocked: false,
         image: 'sticker6',
+        instruction: 'Visit Technology, Policy & Management (TBM) to unlock this sticker!',
+        feedback:
+          'Congratulations! You are now a manager! Do not wait! Continue to collect them all!!',
+        address: {
+          postcode: '2628 BX',
+          straat: 'Jaffalaan',
+          huisnummer: '5',
+          plaats: 'Delft',
+        },
+        gpscoordinaten: { '@lon': '52.0025', '@lat': '4.3695' },
+        name: 'Technology, Policy & Management',
+        locatieCode: '31',
+        picture: 'tpm',
+        info:
+          'The faculty started in 1997 from a merger between the two existing faculties of the Delft University of Technology at the time: Technology and Society and Systems Engineering, Policy Analysis and Management. From 1992 to 1998 Henk G. Sol was founding Dean of the new School for Engineering, Policy Analysis and Management. He prepared the merger, in 1998, into the Faculty of Technology, Policy and Management.',
+      },
+      {
+        type: 'site',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 42,
+        minor: 122,
+        achievementName: 'Achitect',
+        isUnlocked: false,
+        image: 'sticker7',
+        instruction: 'Visit Architecture and the Built Environment (BK) to unlock this sticker!',
+        feedback:
+          'Congratulations! You are now an achitect! Do not wait! Continue to collect them all!!',
+        address: {
+          postcode: '2628 BL',
+          straat: 'Julianalaan',
+          huisnummer: '132-134',
+          plaats: 'Delft',
+        },
+        gpscoordinaten: { '@lon': '52.0057', '@lat': '4.3704' },
+        name: 'Architecture and the Built Environment',
+        locatieCode: '08',
+        picture: 'architecture',
+        info:
+          'The Faculty of Architecture and the Built Environment at TU Delft (Dutch: Faculteit Bouwkunde; abbr. BK ) is the largest faculty of the university with around 2900 students. It is also one of the top faculties of the TU Delft and was ranked 3rd in the world’s top universities for architecture & built environment in the QS World University Rankings by Subject 2015, following the Massachusetts Institute of Technology (MIT) and University College London (UCL).',
+      },
+      {
+        type: 'site',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 152,
+        minor: 12,
+        achievementName: 'Pilot',
+        isUnlocked: false,
+        image: 'sticker8',
+        instruction: 'Visit Aerospace Engineering to unlock this sticker!',
+        feedback:
+          'Congratulations! You are now a pilot! Do not wait! Continue to collect them all!!',
+        address: {
+          postcode: '2629 HS',
+          straat: 'Kluyverweg',
+          huisnummer: '1',
+          plaats: 'Delft',
+        },
+        gpscoordinaten: { '@lon': '51.989923', '@lat': '4.375549' },
+        name: 'Aerospace Engineering',
+        locatieCode: '62',
+        picture: 'aerospace',
+        info:
+          'The Faculty of Aerospace Engineering at the Delft University of Technology in the Netherlands is the merger of two interrelated disciplines, aeronautical engineering and astronautical engineering. Aeronautical engineering works specifically with aircraft or aeronautics. Astronautical engineering works specifically with spacecraft or astronautics. At the Faculty of Aerospace Engineering, both of the fields are directly addressed along with expansion into fields such as wind energy.',
+      },
+      {
+        type: 'event',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 12,
+        minor: 152,
+        achievementName: 'Fried Check-in',
+        isUnlocked: false,
+        image: 'sticker9',
         instruction: 'Visit Aula Conference Center to unlock this sticker!',
         feedback:
           'Congratulations! You are now a Fried Check-in! Do not wait! Continue to collect them all!!',
@@ -229,13 +304,13 @@ class Achievements extends Component {
           'TU Delft Aula was designed by Van den Broek en Bakema architecture bureau founded by two TU Delft alumni Jo van den Broek and Jaap Bakema. It was officially opened on 6 January 1966 by Dutch Prime Minister Jo Cals. It is a classical example of a structure built in Brutalist style. TU Delft Aula, which symbolically opens the Mekelpark, houses main university restaurant and store, as well as lecture halls, auditoria, congress center, and administrative offices of the university. All doctoral promotion, honoris causa ceremonies, as well as academic senate meetings take place in the Aula.',
       },
       {
-        type: 'site',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 37584,
-        minor: 53467,
+        type: 'event',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 72,
+        minor: 92,
         achievementName: 'Bookworm',
         isUnlocked: false,
-        image: 'sticker7',
+        image: 'sticker10',
         instruction: 'Visit library to unlock this sticker!',
         feedback:
           'Congratulations! You are now a bookworm! Do not wait! Continue to collect them all!!',
@@ -254,12 +329,13 @@ class Achievements extends Component {
       },
       {
         type: 'event',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 11655,
-        minor: 47521,
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        // uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+        major: 62,
+        minor: 102,
         achievementName: 'Collect student card',
         isUnlocked: false,
-        image: 'sticker8',
+        image: 'sticker11',
         instruction: 'Visit Central International Office (CIO) to unlock this sticker!',
         feedback: 'Congratulations! You collect your student card!',
         address: {
@@ -281,12 +357,12 @@ class Achievements extends Component {
 
       {
         type: 'event',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 8806,
-        minor: 16058,
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 82,
+        minor: 82,
         achievementName: 'Free pizza',
         isUnlocked: false,
-        image: 'sticker9',
+        image: 'sticker12',
         instruction: 'Visit Canteen at Aula to unlock this sticker!',
         feedback: 'Congratulations! You can get free pizza!',
         address: {
@@ -307,12 +383,12 @@ class Achievements extends Component {
 
       {
         type: 'event',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 56581,
-        minor: 51019,
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 32,
+        minor: 132,
         achievementName: 'Graduation',
         isUnlocked: false,
-        image: 'sticker10',
+        image: 'sticker13',
         instruction: 'Visit underground pub at EWI to unlock this sticker!',
         feedback: 'You attend a graduation party! Have fun!',
         address: {
@@ -333,12 +409,12 @@ class Achievements extends Component {
 
       {
         type: 'hidden',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 44522,
-        minor: 58303,
-        achievementName: 'Walk around at library',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 22,
+        minor: 142,
+        achievementName: 'Upstairs library',
         isUnlocked: false,
-        image: 'sticker1',
+        image: 'sticker14',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
@@ -356,12 +432,12 @@ class Achievements extends Component {
 
       {
         type: 'hidden',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 64225,
-        minor: 33098,
-        achievementName: 'Walk around at EWI',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 102,
+        minor: 62,
+        achievementName: 'Upstairs EWI',
         isUnlocked: false,
-        image: 'sticker2',
+        image: 'sticker15',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
@@ -376,15 +452,14 @@ class Achievements extends Component {
         picture: 'ewi',
         info: 'Walk more to find more hidden treasure.',
       },
-
       {
         type: 'hidden',
-        uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
-        major: 30735,
-        minor: 22413,
-        achievementName: 'Walk around at IO',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 132,
+        minor: 32,
+        achievementName: 'Around IO',
         isUnlocked: false,
-        image: 'sticker3',
+        image: 'sticker16',
         instruction: 'Hidden Treasure!',
         feedback: 'Congratulations! You win a hidden treasure at this building!',
         address: {
@@ -397,6 +472,44 @@ class Achievements extends Component {
         locatieCode: '32',
         name: 'Walk around at IO',
         picture: 'io',
+        info: 'Walk more to find more hidden treasure.',
+      },
+      {
+        type: 'hidden',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 29742,
+        minor: 16208,
+        achievementName: 'Around 3ME',
+        isUnlocked: false,
+        image: 'sticker17',
+        instruction: 'Hidden Treasure!',
+        feedback: 'Congratulations! You win a hidden treasure at this building!',
+        address: {
+          postcode: '2628 CD',
+          straat: 'Mekelweg',
+          huisnummer: '2',
+          plaats: 'Delft',
+        },
+        gpscoordinaten: { '@lon': '52.000973', '@lat': '4.37196' },
+        name: 'Mechanical, Maritime and Materials Engineering',
+        picture: 'me',
+        locatieCode: '34',
+        info: 'Walk more to find more hidden treasure.',
+      },
+
+      {
+        type: 'hidden',
+        uuid: 'B9407F30-F5F8-466E-AFF9-255518BEC641',
+        major: 92,
+        minor: 72,
+        achievementName: '30 meters',
+        isUnlocked: false,
+        image: 'sticker18',
+        instruction: 'Hidden Treasure!',
+        feedback: 'Congratulations! You win a hidden treasure!',
+        name: 'Between EWI and 3me',
+        picture: 'me',
+        locatieCode: '34',
         info: 'Walk more to find more hidden treasure.',
       },
     ]);

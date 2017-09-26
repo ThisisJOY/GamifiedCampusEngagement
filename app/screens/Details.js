@@ -13,6 +13,9 @@ const library = require('./images/library.jpg');
 const civil = require('./images/civil.jpg');
 const appliedsciences = require('./images/appliedsciences.jpg');
 const cio = require('./images/cio.jpg');
+const tpm = require('./images/tpm.jpg');
+const architecture = require('./images/architecture.jpg');
+const aerospace = require('./images/aerospace.jpg');
 const noimage = require('./images/noimage.jpg');
 
 class Details extends Component {
@@ -54,6 +57,15 @@ class Details extends Component {
         break;
       case 'cio':
         pictureSource = cio;
+        break;
+      case 'tpm':
+        pictureSource = tpm;
+        break;
+      case 'architecture':
+        pictureSource = architecture;
+        break;
+      case 'aerospace':
+        pictureSource = aerospace;
         break;
       default:
         pictureSource = noimage;

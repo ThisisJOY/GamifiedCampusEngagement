@@ -35,6 +35,11 @@ const sticker10 = require('./images/sticker10.png');
 const sticker11 = require('./images/sticker11.png');
 const sticker12 = require('./images/sticker12.png');
 const sticker13 = require('./images/sticker13.png');
+const sticker14 = require('./images/sticker14.png');
+const sticker15 = require('./images/sticker15.png');
+const sticker16 = require('./images/sticker16.png');
+const sticker17 = require('./images/sticker17.png');
+const sticker18 = require('./images/sticker18.png');
 const io = require('./images/io.jpg');
 const me = require('./images/3me.jpg');
 const ewi = require('./images/ewi.jpg');
@@ -43,6 +48,9 @@ const library = require('./images/library.jpg');
 const civil = require('./images/civil.jpg');
 const appliedsciences = require('./images/appliedsciences.jpg');
 const cio = require('./images/cio.jpg');
+const tpm = require('./images/tpm.jpg');
+const architecture = require('./images/architecture.jpg');
+const aerospace = require('./images/aerospace.jpg');
 const noimage = require('./images/noimage.jpg');
 
 const deviceUniqueId = DeviceInfo.getUniqueID();
@@ -191,6 +199,15 @@ class NearbyIOS extends Component {
         case 'cio':
           pictureSource = cio;
           break;
+        case 'tpm':
+          pictureSource = tpm;
+          break;
+        case 'architecture':
+          pictureSource = architecture;
+          break;
+        case 'aerospace':
+          pictureSource = aerospace;
+          break;
         default:
           pictureSource = noimage;
       }
@@ -234,6 +251,21 @@ class NearbyIOS extends Component {
             break;
           case 'sticker13':
             imageSource = sticker13;
+            break;
+          case 'sticker14':
+            imageSource = sticker14;
+            break;
+          case 'sticker15':
+            imageSource = sticker15;
+            break;
+          case 'sticker16':
+            imageSource = sticker16;
+            break;
+          case 'sticker17':
+            imageSource = sticker17;
+            break;
+          case 'sticker18':
+            imageSource = sticker18;
             break;
           default:
             imageSource = noimage;
